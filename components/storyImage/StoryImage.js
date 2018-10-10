@@ -23,12 +23,14 @@ class StoryImage extends Component {
   }
 
   handleDownload() {
+    const {data} = this.props;
     if (!this.state.canvasLoading) {
+      const imageName = data.original_name || data.title || data.name;
       this.setState({...this.state, loading: true}, () => {
         let link = document.createElement('a');
         const blob = this.dataURLtoBlob(this.canvasRef.toDataURL('image/png'));
         link.href = URL.createObjectURL(blob);
-        link.download = 'story-image.png';
+        link.download = `${imageName.toLowerCase().replace(/[/\\?%*:|"<>]/g, '').replace(/\s/g, '-')}.png`;
         this.setState({...this.state, loading: false});
         document.body.appendChild(link);
         link.click();

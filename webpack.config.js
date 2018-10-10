@@ -6,20 +6,25 @@ const currentDir = __dirname;
 const codeBase = path.join(currentDir);
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
+const plugins = [
+  new HtmlWebpackPlugin({
+  title: 'Production',
+  template: './index.html'
+  }),
+  new CopyWebpackPlugin([
+    { from: './favicon', to: './favicon' },
+    { from: './CNAME', to: './' },
+  ])
+];
+
+if (PRODUCTION) {
+  plugins.push(new CleanWebpackPlugin(['public']));
+}
+
 const config = {
     entry: './index.js',
     devtool: 'eval',
-    plugins: [
-      new CleanWebpackPlugin(['public']),
-      new HtmlWebpackPlugin({
-      title: 'Production',
-      template: './index.html'
-      }),
-      new CopyWebpackPlugin([
-        { from: './favicon', to: './favicon' },
-        { from: './CNAME', to: './' },
-      ])
-    ],
+    plugins: plugins,
     output: {
         path: path.resolve(__dirname, 'public'),
         publicPath: PRODUCTION ? './' : '/',
