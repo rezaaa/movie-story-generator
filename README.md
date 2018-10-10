@@ -13,7 +13,7 @@ $ npm start
 ## Example
 
 <div align="center">
-  <img src="example.png" width="550" style="border-radius: 10px">
+  <img src="example.png" width="500">
 </div>
 
 ## Contributing
