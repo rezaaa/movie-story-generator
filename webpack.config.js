@@ -17,7 +17,8 @@ const config = {
       }),
       new CopyWebpackPlugin([
         { from: './favicon', to: './favicon' },
-      ],)
+        { from: './CNAME', to: './' },
+      ])
     ],
     output: {
         path: path.resolve(__dirname, 'public'),
