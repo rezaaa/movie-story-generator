@@ -103,8 +103,8 @@ class Home extends Component {
 				<div className={styles.footer}>
 					Created by <a href="https://www.instagram.com/rezaaa/" target="_blank">Mohammad Reza Mahmoudi</a>				
 					<div className={styles.github}>
-						<a class="github-button" href="https://github.com/rezaaa/story-generator" data-icon="octicon-star" data-show-count="true" aria-label="Star rezaaaa/story-generator on GitHub">Star</a>
-						<a class="github-button" href="https://github.com/rezaaa/story-generator/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork rezaaa/story-generator on GitHub">Fork</a>
+						<a class="github-button" href="https://github.com/rezaaa/movie-story-generator" data-icon="octicon-star" data-show-count="true" aria-label="Star rezaaaa/story-generator on GitHub">Star</a>
+						<a class="github-button" href="https://github.com/rezaaa/movie-story-generator/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork rezaaa/story-generator on GitHub">Fork</a>
 					</div>
 				</div>
 			</div>
