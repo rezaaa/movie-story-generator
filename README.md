@@ -12,9 +12,7 @@ $ npm start
 
 ## Example
 
-<div align="center">
-  <img src="example.png" width="500">
-</div>
+<img src="example.png" width="500">
 
 ## Contributing
 
