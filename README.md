@@ -11,8 +11,7 @@ $ npm start
 ```
 ## Adding themes and layouts
 
-Add your themes in `components/storyImage/themes.js`
-Add your layouts in `components/storyImage/layouts.js`
+Add your themes in `components/storyImage/themes.js` and your layouts in `components/storyImage/layouts.js`.
 
 ## Example
 
