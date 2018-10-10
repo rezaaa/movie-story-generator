@@ -1,6 +1,6 @@
 # Instagram Story Generator For Movies and Tv Shows
 
-Generates an image for your searched movie or tv show to share on instagram, twitter and...
+Generates an image for your searched movie or tv show with your rating to share on instagram, twitter and...
 
 ## How to run
 
