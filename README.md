@@ -1,4 +1,4 @@
-# Instagram Story Generator For Movies and Tv Shows [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rezaaa/story-generator/blob/master/LICENSE)
+# Instagram Story Generator For Movies and Tv Shows
 
 Generates an image for your searched movie or tv show for sharing in instagram, twitter and...
 
