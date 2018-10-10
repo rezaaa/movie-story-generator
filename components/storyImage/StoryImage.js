@@ -38,6 +38,11 @@ class StoryImage extends Component {
           URL.revokeObjectURL(blob);
           document.body.removeChild(link);
         }, 100);
+        ga('send', 'event', {
+          eventCategory: 'export',
+          eventAction: 'export',
+          eventLabel: 'export'
+        });
       });
     }
   }
