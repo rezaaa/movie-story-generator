@@ -1,0 +1,174 @@
+@import '../../assets/styles/vars';
+
+.story-wrapper {
+  height: 100%;
+  width: 100%;
+  display: table;
+  direction: rtl;
+}
+
+.svg-cell {
+  display: table-cell;
+  vertical-align: middle;
+  width: 380px;
+  position: relative;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  border-radius: 15px;
+  direction: ltr;
+  font-family: $normalFonts;
+}
+
+.share {
+  direction: ltr;
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 60px;
+  text-align: center;
+
+  h2 {
+    font-weight: 100;
+    font-size: 26px;
+    line-height: 130%;
+    margin-bottom: 25px;
+  }
+}
+
+.btn {
+  background: #d04d62;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+  height: 50px;
+  line-height: 50px;
+  display: inline-block;
+  clear: both;
+  font-size: 18px;
+  font-weight: 100;
+  margin: 0 10px 0 0;
+  text-align: center;
+  transition: .3s;
+  padding: 0 50px;
+  vertical-align: middle;
+  width: 200px;
+  position: relative;
+
+  &:hover {
+    background: mix(#fff, #d04d62, 8% );
+    color: #fff;
+  }
+
+  &:active {
+    background: mix(#fff, #d04d62, 20% );
+    color: #fff;
+  }
+}
+
+.btn-disabled {
+  cursor: not-allowed;
+  background: #e2e2e8;
+  color: #cacad8;
+
+  &:hover, &:active {
+    background: #e2e2e8;
+    color: #cacad8;
+  }
+}
+
+.export {
+  margin-top: 50px;
+
+  a {
+    display: inline-block;
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .social {
+    vertical-align: middle;
+    color: #fff;
+    background: $mainColor;
+    border-radius: 8px;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    display: inline-block;
+
+    &:before {
+      font-size: 22px;
+    }
+
+    &:hover {
+      background: mix(#fff, $mainColor, 8% );
+      color: #fff;
+    }
+  
+    &:active {
+      background: mix(#fff, $mainColor, 20% );
+      color: #fff;
+    }
+  }
+}
+
+.rating {
+  background: #fff;
+  max-width: 450px;
+  width: 90%;
+  margin: 20px auto 20px;
+  padding: 25px 50px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(50,50,93,0.12), 0 -1px 4px rgba(0,0,0,0.06);
+  -webkit-box-shadow: 0 10px 30px rgba(50,50,93,0.12), 0 -1px 4px rgba(0,0,0,0.06);
+
+  h4 {
+    margin-bottom: 42px;
+  }
+}
+
+@media only screen and (min-device-width: 700px) and (max-device-width: 1100px) {
+  .svg {
+    width: auto;
+    height: 100%;
+    float: left;
+  }
+}
+
+@media only screen and (max-device-width: 700px) {
+  .story-wrapper {
+    display: block;
+  }
+  
+  .svg-cell {
+    display: block;
+    width: 100%;
+    margin-bottom: 60px;
+  }
+  
+  .svg {
+    width: 100%;
+  }
+  
+  .share {
+    margin: 60px 0 25px;
+    display: block;
+    padding-left: 0;
+  }
+
+  .btn {
+    display: block;
+    width: 100%;
+  }
+
+  .selector {
+    .selector-item {
+      width: 50%;
+    }
+  }
+}

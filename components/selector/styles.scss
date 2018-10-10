@@ -1,0 +1,58 @@
+@import '../../assets/styles/vars';
+
+.selector {
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(50,50,93,0.12), 0 -1px 4px rgba(0,0,0,0.06);
+  -webkit-box-shadow: 0 10px 30px rgba(50,50,93,0.12), 0 -1px 4px rgba(0,0,0,0.06);
+  -webkit-appearance: none;
+  margin: 0 auto 30px;
+  max-width: 450px;
+  width: 90%;
+  
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  .selector-item {
+    font-weight: 100;
+    float: left;
+    border-radius: 8px;
+    line-height: 50px;
+    cursor: pointer;
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+  .selector-item-active {
+    font-weight: bold;
+    background: $mainColor;
+    color: #fff;
+    box-shadow: 0 0 0 4px $mainColor;
+  }
+}
+
+.col-1{
+  width: 100%;
+}
+
+.col-2 {
+  width: 50%;
+}
+
+.col-3 {
+  width: 33.33333%;
+}
+
+.col-4 {
+  width: 25%;
+}
+
+@media only screen and (max-device-width: 700px) {
+  .selector {
+    .selector-item {
+      width: 50%;
+    }
+  }
+}

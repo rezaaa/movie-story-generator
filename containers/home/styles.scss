@@ -1,0 +1,278 @@
+@import '../../assets/styles/vars';
+
+.main {
+  height: 100%;
+  margin: 0 auto;
+  max-width: $defaultWidth;
+  width: 95%;
+}
+
+.bg-wrapper {
+  position: absolute;
+  overflow: hidden;
+  right: 0;
+  top: 0;
+  width: 500px;
+  height: 500px;
+
+  .bg-circle {
+    position: absolute;
+    width: 1000px;
+    height: 1000px;
+    display: block;
+    border-radius: 100%;
+    right: -500px;
+    top: -500px;
+    background: $mainColor;
+  }
+}
+
+.header {
+  width: 100%;
+  padding: 30px 0;
+
+  .logo {
+    display: block;
+    width: 172px;
+  }
+}
+
+.content {
+  margin: 60px auto 0;
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+.content-left-side {
+  float: left;
+  width: 46%;
+
+  h1 {
+    font-size: 40px;
+    line-height: 130%;
+    font-weight: 100;
+
+    em {
+      color: $mainColor;
+      font-weight: bold;
+    }
+  }
+}
+
+.content-right-side {
+  float: right;
+  width: 50.35%;
+}
+
+.story-wrapper {
+  width: 600px;
+  margin: 15px auto 0;
+}
+
+.default-content {
+  position: relative;
+  z-index: 2;
+
+  &:after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+
+  .movie-poster {
+    float: right;
+    height: 233px;
+    width: 157px;
+    cursor: pointer;
+    margin-left: 1.8%;
+    position: relative;
+    
+    &:last-child {
+      margin-left: 0;
+    }
+    
+    img {
+      box-shadow: 0 10px 30px rgba(50,50,93,0.12), 0 -1px 4px rgba(0,0,0,0.06);
+      -webkit-box-shadow: 0 10px 30px rgba(50,50,93,0.12), 0 -1px 4px rgba(0,0,0,0.06);
+      border-radius: 8px;
+      display: block;
+      height: 100%;
+      -webkit-appearance: none;
+      transition: 0.3s;
+    }
+
+    &:hover img {
+      transform: scale(1.03);
+      box-shadow: 0 20px 40px rgba(50, 50, 93, 0.20), 0 -1px 4px rgba(0, 0, 0, 0.06);
+      -webkit-box-shadow: 0 20px 40px rgba(50, 50, 93, 0.20), 0 -1px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .rank {
+      position: absolute;
+      z-index: 2;
+      background: #d04d62;
+      color: #fff;
+      border-radius: 100%;
+      font-size: 12px;
+      font-weight: bold;
+      right: 0;
+      bottom: 0;
+      transform: translate3d(4px, 4px, 0);
+      width: 26px;
+      height: 26px;
+      line-height: 26px;
+      text-align: center;
+      transition: .3s;
+    }
+
+    &:hover .rank {
+      transform: translate3d(-4px, -1px, 0);
+
+    }
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 20px;
+  max-width: $defaultWidth;
+  width: 95%;
+  font-weight: 100;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  font-size: 12px;
+  color: #716C9A;
+
+  a {
+    color: $mainColor;
+    transition: .3s;
+
+    &:hover {
+      color: $baseColor;
+    }
+  }
+}
+
+@media only screen and (min-device-width: 1100px) and (max-device-width: 1390px) {
+  .default-content {
+    .movie-poster {
+      margin-left: 3%;
+
+      &:nth-child(3) {
+        margin-left: 0;
+      }
+
+      &:nth-child(4) {
+        display: none;
+      }
+    }
+  }
+}
+
+@media only screen and (min-device-width: 980px) and (max-device-width: 1100px) {
+  .bg-wrapper {
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    top: 0;
+    width: 300px;
+    height: 300px;
+  
+    .bg-circle {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      display: block;
+      border-radius: 100%;
+      right: -300px;
+      top: -300px;
+      background: $mainColor;
+    }
+  }
+
+  .main {
+    width: 80%;
+  }
+
+  .default-content {
+    display: none;
+  }
+
+  .content-left-side, .content-right-side {
+    float: none;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .content-right-side {
+    margin-top: 30px;
+  }
+
+  .footer {
+    position: static;
+    bottom: 0;
+    width: 100%;
+    margin-top: 50px;
+  }
+}
+
+@media only screen and (max-device-width: 979px) {
+  .bg-wrapper {
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    top: 0;
+    width: 120px;
+    height: 120px;
+  
+    .bg-circle {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      display: block;
+      border-radius: 100%;
+      right: -120px;
+      top: -120px;
+      background: $mainColor;
+    }
+  }
+
+  .main {
+    width: 85%;
+  }
+
+  .default-content {
+    display: none;
+  }
+
+  .content-left-side, .content-right-side {
+    float: none;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .content-left-side h1 {
+    font-size: 32px;
+  }
+
+  .content-right-side {
+    margin-top: 30px;
+  }
+
+  .content {
+    margin-top: 55px;
+  }
+
+  .footer {
+    position: static;
+    bottom: 0;
+    width: 100%;
+    padding: 50px 0 20px;
+    font-size: 11px;
+    text-align: center;
+  }
+}

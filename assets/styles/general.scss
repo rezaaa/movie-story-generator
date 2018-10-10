@@ -1,0 +1,21 @@
+@import './reset.scss';
+@import './fonts.scss';
+@import './vars.scss';
+
+
+:global {
+	* {
+		box-sizing: border-box;
+	}
+
+	body, html {
+		height: 100%;
+	}
+
+	body {
+		font-family: $normalFonts;
+		font-size: $defaultFontSize;
+		background: #fff;
+		color: $baseColor;
+	}
+}

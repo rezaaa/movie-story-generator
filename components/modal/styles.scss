@@ -1,0 +1,62 @@
+@import '../../assets/styles/vars';
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: rgba(255,255,255,0.98);
+  opacity: 0;
+  visibility: hidden;
+  transition: .2s;
+  overflow: auto;
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.close {
+  position: fixed;
+  z-index: 11;
+  top: 15px;
+  right: 15px;
+  background: #7c7a92;
+  color: #fff;
+  border-radius: 100%;
+  width: 46px;
+  height: 46px;
+  line-height: 46px;
+  text-align: center;
+  font-size: 14px;
+  transition: .3s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $mainColor;
+  }
+}
+
+.modal {
+  max-width: 1000px;
+  width: 80%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 95%;
+}
+
+@media only screen and (max-device-width: 700px) {
+  .modal {
+    width: 90%;
+    position: static;
+    transform: none;
+    height: auto;
+  }
+}

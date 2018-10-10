@@ -1,0 +1,30 @@
+@font-face {
+	font-family: roboto;
+	font-style: normal;
+	font-weight: bold;
+	src: url('../fonts/robotobold.eot');
+	src: url('../fonts/robotobold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+		 url('../fonts/robotobold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('../fonts/robotobold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+		 url('../fonts/robotobold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: roboto;
+	font-style: normal;
+	font-weight: 300;
+	src: url('../fonts/robotolight.eot');
+	src: url('../fonts/robotolight.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+		 url('../fonts/robotolight.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('../fonts/robotolight.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+		 url('../fonts/robotolight.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: shabnam;
+  src: url('../fonts/shabnam-bold.eot?v=1.1.0');
+  src: url('../fonts/shabnam-bold.eot?v=1.1.0#iefix') format('embedded-opentype'),
+       url('../fonts/shabnam-bold.woff?v=1.1.0') format('woff'),
+       url('../fonts/shabnam-bold.ttf?v=1.1.0') format('truetype');
+  font-weight: bold;
+}
