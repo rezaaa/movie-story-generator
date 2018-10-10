@@ -9,13 +9,10 @@ Running locally:
 $ npm install
 $ npm start
 ```
-## Adding themes
+## Adding themes and layouts
 
-Add your themes in `components/storyImage/themes.js` and send a PR.
-
-## Adding layouts
-
-Add your layouts in `components/storyImage/layouts.js` and send a PR.
+Add your themes in `components/storyImage/themes.js`
+Add your layouts in `components/storyImage/layouts.js`
 
 ## Example
 
