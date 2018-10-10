@@ -157,6 +157,15 @@
   }
 }
 
+.github {
+  float: right;
+
+  span:first-child {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+
 @media only screen and (min-device-width: 1100px) and (max-device-width: 1390px) {
   .default-content {
     .movie-poster {
@@ -274,5 +283,10 @@
     padding: 50px 0 20px;
     font-size: 11px;
     text-align: center;
+  }
+
+  .github {
+    float: none;
+    margin-top: 20px
   }
 }
