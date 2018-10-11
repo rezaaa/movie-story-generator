@@ -121,6 +121,10 @@ class StoryImage extends Component {
     return (
       <div className={styles.storyWrapper}>
         <div className={styles.share}>
+          {
+            this.state.canvasLoading &&
+            <div className={styles.blockingOverlay}></div>
+          }
           <h2>Download and Share Your Story</h2>
           <div className={styles.rating}>
             <h4>Rate this movie</h4>

@@ -25,6 +25,7 @@ const config = {
     entry: './index.js',
     devtool: 'eval',
     plugins: plugins,
+    performance: { hints: false },
     output: {
         path: path.resolve(__dirname, 'public'),
         publicPath: PRODUCTION ? './' : '/',

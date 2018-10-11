@@ -12,7 +12,7 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
   if (layout == 'story') {
     canvas.width = 1080;
     canvas.height = 1920;
-    ctx.textBaseline = 'middle';
+    ctx.textBaseline = 'alphabetic';
     ctx.fillStyle = themes[activeTheme].background;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     const imageWidth = 800;
@@ -34,9 +34,9 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
       ctx.textAlign="center";
       ctx.fillStyle = themes[activeTheme].ratingText;
       ctx.font = "40px roboto";
-      ctx.fillText('My Rate', canvas.width / 2, 168);
+      ctx.fillText('My Rate', canvas.width / 2, 186);
       ctx.font = "bold 55px roboto";
-      ctx.fillText(Math.round(rate*2)/2, canvas.width / 2, 235);
+      ctx.fillText(Math.round(rate*2)/2, canvas.width / 2, 256);
     }
     
     // info box
@@ -47,19 +47,19 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
     ctx.textAlign="center";
     ctx.font = "bold 35px roboto";
     ctx.fillStyle = themes[activeTheme].title;
-    ctx.fillText(data.media_type ? data.media_type.toUpperCase() : 'MOVIE', 859, 1473);
+    ctx.fillText(data.media_type ? data.media_type.toUpperCase() : 'MOVIE', 859, 1486);
 
     // year
     ctx.font = "40px roboto";
     ctx.fillStyle = themes[activeTheme].text;
     ctx.textAlign="left";
-    ctx.fillText(`Year: ${getYear(data.first_air_date || data.release_date)}`, 155, 1470);
+    ctx.fillText(`Year: ${getYear(data.first_air_date || data.release_date)}`, 155, 1486);
 
     // genre
     ctx.font = "40px roboto";
     ctx.fillStyle = themes[activeTheme].text;
     ctx.textAlign="left";
-    ctx.fillText(`Genre: ${itemGenres.join(', ')}`, 155, 1560);
+    ctx.fillText(`Genre: ${itemGenres.join(', ')}`, 155, 1574);
 
     //movie title
     ctx.textAlign="center";
@@ -72,18 +72,18 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
       ctx.font = `bold ${defaultFontSize}px roboto, shabnam`;     
     }
     ctx.fillStyle = themes[activeTheme].title;
-    ctx.fillText(title,(canvas.width / 2), 1675);
+    ctx.fillText(title,(canvas.width / 2), 1700);
 
     // copyright
     ctx.textAlign="center";
     ctx.font = "30px roboto";
     ctx.fillStyle = themes[activeTheme].footerText;
-    ctx.fillText('instagram.ir',(canvas.width / 2), 1875);
+    ctx.fillText('instagram.ir',(canvas.width / 2), 1890);
   }
   if (layout == 'twitter') {
     canvas.width = 1200;
     canvas.height = 674;
-    ctx.textBaseline = 'middle';
+    ctx.textBaseline = 'alphabetic';
     ctx.fillStyle = themes[activeTheme].background;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     const imageWidth = 390;
@@ -93,18 +93,18 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
       const imageHeight = imageWidth * img.height / img.width;
       // poster border
       ctx.save();
-      roundedReact(ctx, 50, (canvas.height / 2) - (imageHeight / 2), imageWidth, imageHeight, radius, themes[activeTheme].imageBg, themes[activeTheme].imageBg, borderSize);
+      roundedReact(ctx, 45, (canvas.height / 2) - (imageHeight / 2), imageWidth, imageHeight, radius, themes[activeTheme].imageBg, themes[activeTheme].imageBg, borderSize);
       ctx.clip();
       // poster
-      ctx.drawImage(img, 50, (canvas.height / 2) - (imageHeight / 2), imageWidth, imageHeight);
+      ctx.drawImage(img, 45, (canvas.height / 2) - (imageHeight / 2), imageWidth, imageHeight);
       ctx.restore();
 
       // rating
-      roundedReact(ctx, 490, 35, 300, 100, 25, themes[activeTheme].ratingBg);
+      roundedReact(ctx, 490, 36, 300, 100, 25, themes[activeTheme].ratingBg);
       ctx.textAlign="center";
       ctx.fillStyle = themes[activeTheme].ratingText;
       ctx.font = "40px roboto";
-      ctx.fillText(`My Rate: ${Math.round(rate*2)/2}`, 640, 84);
+      ctx.fillText(`My Rate: ${Math.round(rate*2)/2}`, 640, 101);
     }
 
     //movie title
@@ -114,25 +114,25 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
     ctx.font = `bold ${defaultFontSize}px roboto, shabnam`;
     const maxWidth = 650;
     ctx.fillStyle = themes[activeTheme].title;
-    wrapText(ctx, title, 490, 200, maxWidth, 70);
+    wrapText(ctx, title, 490, 220, maxWidth, 70);
 
     // year
     ctx.font = "40px roboto";
     ctx.fillStyle = themes[activeTheme].title;
     ctx.textAlign="left";
-    ctx.fillText(`Year: ${getYear(data.first_air_date || data.release_date)}`, 490, 450);
+    ctx.fillText(`Year: ${getYear(data.first_air_date || data.release_date)}`, 490, 465);
 
     // genre
     ctx.font = "40px roboto";
     ctx.fillStyle = themes[activeTheme].title;
     ctx.textAlign="left";
-    ctx.fillText(`Genre: ${itemGenres.join(', ')}`, 490, 520);
+    ctx.fillText(`Genre: ${itemGenres.join(', ')}`, 490, 535);
 
     // copyright
     ctx.textAlign="left";
     ctx.font = "30px roboto";
     ctx.fillStyle = themes[activeTheme].footerText;
-    ctx.fillText('instagram.ir',490, 625);
+    ctx.fillText('instagram.ir',490, 631);
   }
 }
 

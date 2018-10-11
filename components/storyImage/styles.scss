@@ -28,6 +28,7 @@
   vertical-align: middle;
   padding-left: 60px;
   text-align: center;
+  position: relative;
 
   h2 {
     font-weight: 100;
@@ -115,6 +116,14 @@
       color: #fff;
     }
   }
+}
+
+.blocking-overlay {
+  background: rgba(255,255,255,0.5);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
 }
 
 .rating {
