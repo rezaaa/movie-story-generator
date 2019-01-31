@@ -101,7 +101,7 @@ class Home extends Component {
 				</div>
 				<Modal data={this.state.selectedItem} genres={{movie: movieGenres, tv: tvGenres}} open={this.state.modalIsOpen} handleClose={this.handleModalClose} />
 				<div className={styles.footer}>
-					Created by <a href="https://www.instagram.com/rezaaa/" target="_blank">Mohammad Reza Mahmoudi</a>				
+					Created by <a href="https://www.instagram.com/_rezamahmoudii/" target="_blank">Mohammad Reza Mahmoudi</a>				
 					<div className={styles.github}>
 						<a class="github-button" href="https://github.com/rezaaa/movie-story-generator" data-icon="octicon-star" data-show-count="true" aria-label="Star rezaaaa/story-generator on GitHub">Star</a>
 						<a class="github-button" href="https://github.com/rezaaa/movie-story-generator/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork rezaaa/story-generator on GitHub">Fork</a>
