@@ -34,7 +34,8 @@ const config = {
       devServer: {
         contentBase: './public',
         inline: true,
-        port: 3000
+        port: 3000,
+        disableHostCheck: true
       },
       module: {
         rules: [
