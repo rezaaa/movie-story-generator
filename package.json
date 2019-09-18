@@ -14,7 +14,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js open",
-    "build": "NODE_ENV=production webpack -p npm install --dev",
+    "build": "NODE_ENV=production webpack -p",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d public",
     "heroku-prebuild": "npm install --dev"
