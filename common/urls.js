@@ -5,10 +5,10 @@ const posterUrlBase = {
   dev: 'http://image.tmdb.org',
   pro: 'https://murmuring-tundra-31743.herokuapp.com/posters',
 };
-export const posterUrl1280 = `${posterUrlBase[env]}/t/p/w1280/`;
-export const posterUrl600 = `${posterUrlBase[env]}/t/p/w600_and_h900_bestv2/`;
-export const posterUrl300 = `${posterUrlBase[env]}/t/p/w300_and_h450_bestv2/`;
-export const posterUrl185 = `${posterUrlBase[env]}/t/p/w185_and_h278_bestv2/`;
+export const posterUrl1280 = `${posterUrlBase[env]}/t/p/w1280`;
+export const posterUrl600 = `${posterUrlBase[env]}/t/p/w600_and_h900_bestv2`;
+export const posterUrl300 = `${posterUrlBase[env]}/t/p/w300_and_h450_bestv2`;
+export const posterUrl185 = `${posterUrlBase[env]}/t/p/w185_and_h278_bestv2`;
 
 // api
 const apiBase = {
