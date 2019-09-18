@@ -27,12 +27,12 @@ const config = {
   plugins: plugins,
   performance: { hints: false },
   output: {
-    path: path.resolve(__dirname, "public"),
+    path: path.resolve(__dirname, "dist"),
     publicPath: PRODUCTION ? "./" : "/",
     filename: "bundle.js"
   },
   devServer: {
-    contentBase: "./public",
+    contentBase: "./dist",
     inline: true,
     port: 3000,
     disableHostCheck: true
