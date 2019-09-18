@@ -17,9 +17,9 @@ const plugins = [
   ])
 ];
 
-// if (PRODUCTION) {
-//   plugins.push(new CleanWebpackPlugin(["public"]));
-// }
+if (PRODUCTION) {
+  plugins.push(new CleanWebpackPlugin(["public"]));
+}
 
 const config = {
   entry: "./index.js",

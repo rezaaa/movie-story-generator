@@ -1,13 +1,14 @@
-var webpack = require("webpack");
-var WebpackDevServer = require("webpack-dev-server");
-var config = require("./webpack.config");
-const port = process.env.PORT || 3000;
+const http = require('http');
 
-new WebpackDevServer(webpack(config), {
-  publicPath: config.output.publicPath,
-  disableHostCheck: true
-}).listen(port, "0.0.0.0", function(err, result) {
-  if (err) {
-    console.log(err);
-  }
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello, World!\n');
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
 });
