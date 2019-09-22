@@ -5,7 +5,7 @@ import {moviesApiBase, apiKey} from '../common/urls';
 function fetchMoviesRequest(title) {
   if(title.length > 0) {
     return axios
-      .post(`${moviesApiBase}/3/search/multi?api_key=${apiKey}&language=en-US&page=1&include_adult=false&query=${title}`)
+      .get(`${moviesApiBase}/3/search/multi?api_key=${apiKey}&language=en-US&page=1&include_adult=false&query=${title}`)
       .then(response => response)
       .catch(error => ({ error }));
   }
