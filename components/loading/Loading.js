@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './loading.scss';
 
 const Loading = ({ type, color, size, hide, className }) => {
@@ -14,13 +13,6 @@ const Loading = ({ type, color, size, hide, className }) => {
       <span className={spinnerClasses} />
     </div>
   );
-};
-
-Loading.propTypes = {
-  type: PropTypes.string,
-  color: PropTypes.string,
-  size: PropTypes.string,
-  hide: PropTypes.bool,
 };
 
 export default Loading;

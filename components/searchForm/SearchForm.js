@@ -54,7 +54,7 @@ class SearchForm extends Component {
 					{
 						notFound && <span className={[styles.notFound, icons.iconClose].join(' ')}></span>
 					}
-					<input value={this.state.searchValue} placeholder="Movie or Show Name" className={styles.input} onChange={this.handleSearch} onClick={openSearchList} spellcheck="false" />
+					<input value={this.state.searchValue} placeholder="Movie or Show Name" className={styles.input} onChange={this.handleSearch} onClick={openSearchList} spellCheck="false" />
 				</div>
 				<div className={[styles.list, data && data.length > 0 && searchListIsVisible ? styles.listVisible : ''].join(' ')}>
 					{

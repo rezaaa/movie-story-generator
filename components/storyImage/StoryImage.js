@@ -156,7 +156,7 @@ class StoryImage extends Component {
             size="small"
             hide={!this.state.canvasLoading}
           />
-          <canvas className={styles.svg} ref={node => this.setCanvasRef(node)} crossorigin="anonymous" />
+          <canvas className={styles.svg} ref={node => this.setCanvasRef(node)} crossOrigin="anonymous" />
         </div>
       </div>
 		)

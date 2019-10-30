@@ -3,13 +3,12 @@
 .story-wrapper {
   height: 100%;
   width: 100%;
-  display: table;
+  display: flex;
+  align-items: center;
   direction: rtl;
 }
 
 .svg-cell {
-  display: table-cell;
-  vertical-align: middle;
   width: 380px;
   position: relative;
 }
@@ -24,8 +23,7 @@
 
 .share {
   direction: ltr;
-  display: table-cell;
-  vertical-align: middle;
+  flex: 1;
   padding-left: 60px;
   text-align: center;
   position: relative;
@@ -151,11 +149,11 @@
 
 @media only screen and (max-device-width: 700px) {
   .story-wrapper {
-    display: block;
+    align-items: flex-start;
+    flex-direction: column;
   }
   
   .svg-cell {
-    display: block;
     width: 100%;
     margin-bottom: 60px;
   }
