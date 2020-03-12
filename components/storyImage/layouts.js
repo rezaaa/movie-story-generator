@@ -34,7 +34,7 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
       ctx.textAlign="center";
       ctx.fillStyle = themes[activeTheme].ratingText;
       ctx.font = "40px roboto";
-      ctx.fillText('My Rate', canvas.width / 2, 186);
+      ctx.fillText('My Rating', canvas.width / 2, 186);
       ctx.font = "bold 55px roboto";
       ctx.fillText(Math.round(rate*2)/2, canvas.width / 2, 256);
     }
@@ -104,7 +104,7 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
       ctx.textAlign="center";
       ctx.fillStyle = themes[activeTheme].ratingText;
       ctx.font = "40px roboto";
-      ctx.fillText(`My Rate: ${Math.round(rate*2)/2}`, 640, 101);
+      ctx.fillText(`My Rating: ${Math.round(rate*2)/2}`, 640, 101);
     }
 
     //movie title

@@ -127,7 +127,7 @@ class StoryImage extends Component {
           }
           <h2>Download and Share Your Story</h2>
           <div className={styles.rating}>
-            <h4>Rate this movie</h4>
+            <h4>My Rating</h4>
             <Rating max={10} min={0} step={0.5} value={Math.round(data.vote_average*2)/2} handleRating={this.handleRating} />
           </div>
           <Selector data={layoutsName} activeValue={this.state.layout} action={this.changeLayout} />
