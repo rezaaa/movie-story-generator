@@ -22,7 +22,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-preset-es2018": "^1.0.0",
     "babel-preset-react": "^6.24.1",
     "cryptiles": "^4.1.2",
