@@ -76,7 +76,7 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
 
     // copyright
     ctx.textAlign="center";
-    ctx.font = "30px roboto";
+    ctx.font = "40px roboto";
     ctx.fillStyle = themes[activeTheme].footerText;
     ctx.fillText('instagram.ir',(canvas.width / 2), 1890);
   }
@@ -130,7 +130,7 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
 
     // copyright
     ctx.textAlign="left";
-    ctx.font = "30px roboto";
+    ctx.font = "40px roboto";
     ctx.fillStyle = themes[activeTheme].footerText;
     ctx.fillText('instagram.ir',490, 631);
   }
