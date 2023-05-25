@@ -18,8 +18,9 @@ class StoryImage extends Component {
     this.handleDownload = this.handleDownload.bind(this);
     this.getBase64Image = this.getBase64Image.bind(this);
     this.handleRating = this.handleRating.bind(this);
+    this.disableRate = this.disableRate.bind(this);
     this.link = document.createElement("a");    
-    this.state = {moviePoster: '', canvasLoading: false, loading: false, theme: 'dark', layout: 'story'};
+    this.state = {moviePoster: '', canvasLoading: false, loading: false, hasRate: 'With Rating', theme: 'dark', layout: 'story'};
   }
 
   handleDownload() {
@@ -61,7 +62,7 @@ class StoryImage extends Component {
     let canvas = this.canvasRef;
     let ctx = canvas.getContext('2d');
     ctx.save();
-    layouts(this.state.layout, canvas, ctx, base64Image, themes, this.state.theme, data, genres, this.state.rate);
+    layouts(this.state.layout, canvas, ctx, base64Image, themes, this.state.theme, data, genres, this.state.rate, this.state.hasRate);
     ctx.restore();
     this.setState({...this.state, canvasLoading: false});
   }
@@ -84,6 +85,12 @@ class StoryImage extends Component {
         this.generateImage(this.state.poster);
       });
     }
+  }
+
+  disableRate(value) {
+      this.setState({...this.state, hasRate: value}, () => {
+        this.generateImage(this.state.poster);
+      });
   }
 
   getBase64Image(url, callback) {
@@ -126,6 +133,7 @@ class StoryImage extends Component {
             <div className={styles.blockingOverlay}></div>
           }
           <h2>Download and Share Your Story</h2>
+          <Selector data={['With Rating', 'Without Rating']} activeValue={this.state.hasRate} action={this.disableRate} />
           <div className={styles.rating}>
             <h4>My Rating</h4>
             <Rating max={10} min={0} step={0.5} value={Math.round(data.vote_average*2)/2} handleRating={this.handleRating} />

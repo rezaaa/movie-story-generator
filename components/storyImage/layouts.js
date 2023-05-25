@@ -1,9 +1,10 @@
 import {getYear} from '../../utils/utils';
 
-const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, genres, rate) => {
+const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, genres, rate, hasRate) => {
   let img = new Image();
   img.setAttribute("src", base64Image);
   img.setAttribute('crossOrigin', 'anonymous');
+  const hasRating = hasRate === 'With Rating';
 
   const itemGenres = genres.map(item => {
     return item.name
@@ -30,13 +31,15 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
       ctx.restore();
 
       // rating
-      roundedReact(ctx, (canvas.width / 2) - 150, 130, 300, 150, 40, themes[activeTheme].ratingBg);
-      ctx.textAlign="center";
-      ctx.fillStyle = themes[activeTheme].ratingText;
-      ctx.font = "40px roboto";
-      ctx.fillText('My Rating', canvas.width / 2, 186);
-      ctx.font = "bold 55px roboto";
-      ctx.fillText(Math.round(rate*2)/2, canvas.width / 2, 256);
+      if(hasRating) {
+        roundedReact(ctx, (canvas.width / 2) - 150, 130, 300, 150, 40, themes[activeTheme].ratingBg);
+        ctx.textAlign="center";
+        ctx.fillStyle = themes[activeTheme].ratingText;
+        ctx.font = "40px roboto";
+        ctx.fillText('My Rating', canvas.width / 2, 186);
+        ctx.font = "bold 55px roboto";
+        ctx.fillText(Math.round(rate*2)/2, canvas.width / 2, 256);
+      }
     }
     
     // info box
@@ -76,9 +79,9 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
 
     // copyright
     ctx.textAlign="center";
-    ctx.font = "40px roboto";
+    ctx.font = "46px roboto";
     ctx.fillStyle = themes[activeTheme].footerText;
-    ctx.fillText('instagram.ir',(canvas.width / 2), 1890);
+    ctx.fillText('instagram.ir',(canvas.width / 2), 1850);
   }
   if (layout == 'twitter') {
     canvas.width = 1200;
@@ -100,11 +103,13 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
       ctx.restore();
 
       // rating
-      roundedReact(ctx, 490, 36, 300, 100, 25, themes[activeTheme].ratingBg);
-      ctx.textAlign="center";
-      ctx.fillStyle = themes[activeTheme].ratingText;
-      ctx.font = "40px roboto";
-      ctx.fillText(`My Rating: ${Math.round(rate*2)/2}`, 640, 101);
+      if(hasRating) {
+        roundedReact(ctx, 490, 36, 300, 100, 25, themes[activeTheme].ratingBg);
+        ctx.textAlign="center";
+        ctx.fillStyle = themes[activeTheme].ratingText;
+        ctx.font = "40px roboto";
+        ctx.fillText(`My Rating: ${Math.round(rate*2)/2}`, 640, 101);
+      }
     }
 
     //movie title
@@ -114,7 +119,7 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
     ctx.font = `bold ${defaultFontSize}px roboto, shabnam`;
     const maxWidth = 650;
     ctx.fillStyle = themes[activeTheme].title;
-    wrapText(ctx, title, 490, 220, maxWidth, 70);
+    wrapText(ctx, title, 490, hasRating ? 220 : 95, maxWidth, 70);
 
     // year
     ctx.font = "40px roboto";
@@ -130,9 +135,9 @@ const layouts = (layout, canvas, ctx, base64Image, themes, activeTheme, data, ge
 
     // copyright
     ctx.textAlign="left";
-    ctx.font = "40px roboto";
+    ctx.font = "44px roboto";
     ctx.fillStyle = themes[activeTheme].footerText;
-    ctx.fillText('instagram.ir',490, 631);
+    ctx.fillText('instagram.ir',490, 627);
   }
 }
 
