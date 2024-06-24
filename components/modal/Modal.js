@@ -28,14 +28,14 @@ class Modal extends Component {
 		const {data, open, handleClose} = this.props;
 		return (
 			<div className={[styles.overlay, open ? styles.visible : ''].join(' ')}>
-        <span className={[styles.close, icons.iconClose].join(' ')} onClick={handleClose}></span>
-        <div className={styles.modal}>
-          {
-            data && open &&
-            <StoryImage data={data} genres={this.findGenres()} />          
-          }
-        </div>
-			</div>
+        			<span className={[styles.close, icons.iconClose].join(' ')} onClick={handleClose}></span>
+      				 <div className={styles.modal}>
+				  {
+				    data && open &&
+				    <StoryImage data={data} genres={this.findGenres()} />          
+				  }
+     				 </div>
+		        </div>
 		)
 	}
 }
