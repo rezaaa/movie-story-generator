@@ -75,4 +75,4 @@ MIT - Do whatever you want with it.
 
 ---
 
-Made with popcorn by [Reza Mahmoudi](https://x.com/rezamahmoudii)
+Made by [Reza Mahmoudi](https://x.com/rezamahmoudii)
