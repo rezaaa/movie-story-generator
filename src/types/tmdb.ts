@@ -52,3 +52,8 @@ export interface MovieDetails extends TMDBMovie {
     logo_path: string | null
   }[]
 }
+
+export interface MarathonMovie extends TMDBMovie {
+  order: number
+  customRating?: number
+}

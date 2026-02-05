@@ -1,22 +1,28 @@
-# Movie Story Generator
+# 🎬 Movie Story Generator
 
 [![GitHub stars](https://img.shields.io/github/stars/rezaaa/movie-story-generator?style=social)](https://github.com/rezaaa/movie-story-generator)
 
-Create stunning Instagram stories and social media posts from your favorite movies and TV series. Because your taste in movies deserves to look as good as it sounds.
+Create stunning Instagram stories and social media posts from your favorite movies and TV series. Turn your movie taste into beautiful, shareable designs in seconds.
 
-## Features
+## ✨ Features
 
-- **Search Everything** - Find any movie or TV series from TMDB's massive database
-- **6 Unique Layouts** - Premiere, Nostalgia, Neon, Noir, Frost, and Duality
-- **Multiple Sizes** - Vertical (1080x1920) for Stories, Horizontal (1920x1080) for posts
-- **Dark & Light Themes** - For the vampires and the early birds
-- **Custom Colors** - Pick any accent color you want
-- **Typography Options** - 7 fonts to match your vibe
-- **Custom Ratings** - Rate movies your way (we won't judge)
-- **Watermark Support** - Brand your creations
-- **Export & Share** - Download as PNG or share directly
+- **🔍 Search Everything** - Find any movie or TV series from TMDB's massive database.
+- **🖼️ Two Unique Modes:**
+  - **Single Story:** Focus on one masterpiece with deep customization.
+  - **Marathon Mode:** Create lists, rankings, or bundles of up to 6 movies.
+- **🎨 11+ Unique Layouts:**
+  - **Single:** Classic, Modern, Cinematic, Minimal, Glassmorphic, Split.
+  - **Marathon:** Artistic (Collage), Grid, Ranked, Timeline, Minimal.
+- **📱 Built for Social** - Export in Vertical (1080x1920) for Stories or Horizontal (1920x1080) for posts.
+- **🪄 Smart Suggestions** - Use the "Magic Wand" to generate themed marathons based on genres and ratings.
+- **🌈 Deep Customization:**
+  - Dark & Light themes.
+  - Custom accent colors & backgrounds.
+  - 8+ Premium typography options (Oswald, Cinzel, Bebas Neue, etc.).
+  - Custom ratings & watermark support.
+- **💾 High-Quality Export** - Download your creations as high-resolution PNGs.
 
-## Quick Start
+## 🚀 Quick Start
 
 1. Clone the repo
 ```bash
@@ -43,36 +49,35 @@ npm run dev
 
 6. Open [http://localhost:3000](http://localhost:3000) and start creating!
 
-## Environment Variables
+## ⚙️ Environment Variables
 
 | Variable | Description |
 |----------|-------------|
-| `NEXT_PUBLIC_TMDB_API_KEY` | Your TMDB API key (required) |
-| `NEXT_PUBLIC_TMDB_API_URL` | TMDB API base URL |
-| `NEXT_PUBLIC_TMDB_IMAGE_URL` | TMDB image base URL |
-| `NEXT_PUBLIC_WATERMARK_TEXT` | Custom watermark text |
+| `NEXT_PUBLIC_TMDB_API_KEY` | Your TMDB API key (Required) |
+| `NEXT_PUBLIC_TMDB_API_URL` | `https://api.themoviedb.org/3` |
+| `NEXT_PUBLIC_TMDB_IMAGE_URL` | `https://image.tmdb.org/t/p` |
+| `NEXT_PUBLIC_WATERMARK_TEXT` | Custom watermark text (Optional) |
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- **Next.js 15** - React framework
-- **Tailwind CSS** - Styling
-- **shadcn/ui** - UI components
-- **TMDB API** - Movie & TV data
-- **html-to-image** - Export magic
+- **[Next.js 16](https://nextjs.org/)** - React Framework
+- **[React 19](https://react.dev/)** - UI Library
+- **Tailwind CSS 4** - Styling
+- **shadcn/ui** - Component Library
+- **TMDB API** - Movie & TV Data
+- **html-to-image** - Client-side export magic
 
-## Contributing
+## 🤝 Contributing
 
-Found a bug? Have a cool idea? Want to add a "Nicolas Cage Appreciation Mode"?
+Found a bug? Have a cool idea? Want to add a new font or layout?
 
 1. Fork it
-2. Create your feature branch (`git checkout -b feature/cage-mode`)
-3. Commit your changes (`git commit -m 'Add Nicolas Cage easter egg'`)
-4. Push to the branch (`git push origin feature/cage-mode`)
+2. Create your feature branch (`git checkout -b feature/cool-new-thing`)
+3. Commit your changes (`git commit -m 'Add awesome feature'`)
+4. Push to the branch (`git push origin feature/cool-new-thing`)
 5. Open a Pull Request
 
-All contributions are welcome - from fixing typos to adding new layouts. Just keep it fun!
-
-## License
+## 📄 License
 
 MIT - Do whatever you want with it.
 

@@ -1044,7 +1044,7 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
           <Sparkles className="size-4" />
           Presets
         </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 gap-2">
           {presets.map((preset) => (
             <Button
               key={preset.name}
@@ -1053,14 +1053,15 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
               onClick={() => {
                 setLayout(preset.layout)
                 setAccentColor(preset.accentColor)
+                setFont(preset.font)
               }}
-              className="justify-start text-xs gap-2"
+              className="justify-start text-xs gap-2 w-full"
             >
-              <span
-                className="w-3 h-3 rounded-full shrink-0"
+              <div
+                className="w-2.5 h-2.5 rounded-full shrink-0"
                 style={{ backgroundColor: preset.accentColor }}
               />
-              {preset.name}
+              <span className="truncate">{preset.name}</span>
             </Button>
           ))}
         </div>
@@ -1224,16 +1225,16 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
                 <Layout className="size-3" />
                 Layout
               </h4>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 {(Object.keys(layouts) as LayoutType[]).map((l) => (
                   <Button
                     key={l}
                     variant={layout === l ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setLayout(l)}
-                    className="justify-start text-xs"
+                    className="justify-start text-xs w-full"
                   >
-                    {layouts[l]}
+                    <span className="truncate">{layouts[l]}</span>
                   </Button>
                 ))}
               </div>
@@ -1245,29 +1246,35 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
                 <Type className="size-3" />
                 Typography
               </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 {(Object.keys(fonts) as FontType[]).map((f) => (
                   <button
                     key={f}
                     onClick={() => setFont(f)}
-                    className={`w-full p-3 rounded-lg border text-left transition-all hover:bg-accent/50 ${
-                      font === f
-                        ? 'border-primary bg-primary/10'
-                        : 'border-border bg-background'
+                    className={`w-full p-2.5 rounded-lg border text-left transition-all relative overflow-hidden group ${
+                      font === f 
+                        ? 'border-primary bg-primary/10 ring-1 ring-primary' 
+                        : 'border-white/10 hover:border-white/20 bg-white/5'
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-sm font-medium">{fonts[f].name}</span>
-                      {font === f && (
-                        <div className="w-2 h-2 rounded-full bg-primary" />
-                      )}
+                    <div className="relative z-10">
+                      <span className={`text-[9px] uppercase tracking-wider font-bold block mb-1 ${
+                        font === f ? 'text-primary' : 'text-muted-foreground'
+                      }`}>
+                        {fonts[f].name}
+                      </span>
+                      <div 
+                        className="text-base font-bold leading-none"
+                        style={{ fontFamily: fonts[f].family }}
+                      >
+                        {fonts[f].preview}
+                      </div>
                     </div>
-                    <div
-                      className="text-lg font-bold text-muted-foreground leading-none"
-                      style={{ fontFamily: fonts[f].family }}
-                    >
-                      {fonts[f].preview}
-                    </div>
+                    {font === f && (
+                      <div className="absolute right-2 top-2">
+                        <div className="size-1.5 rounded-full bg-primary animate-pulse" />
+                      </div>
+                    )}
                   </button>
                 ))}
               </div>
