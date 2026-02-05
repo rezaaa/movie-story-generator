@@ -96,10 +96,10 @@ export function TrendingSection({ onSelect }: TrendingSectionProps) {
             <div className="w-4 sm:w-6 lg:w-8" aria-hidden="true" />
           </CarouselItem>
           {trending.map((item) => (
-            <CarouselItem key={item.id} className="pl-2.5 sm:pl-3 basis-auto">
+            <CarouselItem key={item.id} className="pl-2.5 sm:pl-3 basis-auto py-2">
               <button
                 onClick={() => onSelect(item)}
-                className="group w-[130px] sm:w-[160px] active:scale-[0.98] transition-transform"
+                className="group w-[130px] sm:w-[160px] active:scale-[0.98] transition-transform duration-300 ease-out hover:scale-[1.03]"
               >
                 <div className="relative aspect-[2/3] rounded-lg overflow-hidden bg-muted mb-1.5 sm:mb-2">
                   {item.poster_path ? (
