@@ -38,16 +38,16 @@ export function TrendingSection({ onSelect }: TrendingSectionProps) {
 
   if (isLoading) {
     return (
-      <div className="mt-8 sm:mt-12 px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-          <TrendingUp className="size-5 sm:size-6 text-primary" />
-          <h2 className="text-xl sm:text-2xl font-bold">Trending This Week</h2>
+      <div className="mt-4 sm:mt-6 px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-2 mb-3 sm:mb-4">
+          <TrendingUp className="size-4 sm:size-5 text-primary" />
+          <h2 className="text-base sm:text-lg font-bold">Trending This Week</h2>
         </div>
-        <div className="flex gap-3 sm:gap-4 overflow-hidden">
+        <div className="flex gap-2.5 sm:gap-3 overflow-hidden">
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
-              className="shrink-0 w-[140px] sm:w-[180px] h-[210px] sm:h-[270px] rounded-xl bg-muted animate-pulse"
+              className="shrink-0 w-[130px] sm:w-[160px] h-[195px] sm:h-[240px] rounded-lg bg-muted animate-pulse"
             />
           ))}
         </div>
@@ -56,28 +56,28 @@ export function TrendingSection({ onSelect }: TrendingSectionProps) {
   }
 
   return (
-    <div className="mt-8 sm:mt-12">
-      <div className="flex items-center justify-between mb-4 sm:mb-6 px-4 sm:px-6 lg:px-8 container mx-auto">
-        <div className="flex items-center gap-2 sm:gap-3">
-          <TrendingUp className="size-5 sm:size-6 text-primary" />
-          <h2 className="text-xl sm:text-2xl font-bold">Trending This Week</h2>
+    <div className="mt-4 sm:mt-6">
+      <div className="flex items-center justify-between mb-3 sm:mb-4 px-4 sm:px-6 lg:px-8 container mx-auto">
+        <div className="flex items-center gap-2">
+          <TrendingUp className="size-4 sm:size-5 text-primary" />
+          <h2 className="text-base sm:text-lg font-bold">Trending This Week</h2>
         </div>
-        <div className="flex gap-1.5 sm:gap-2">
+        <div className="flex gap-1.5">
           <Button
             variant="outline"
             size="icon"
             onClick={() => api?.scrollPrev()}
-            className="rounded-full size-9 sm:size-10"
+            className="rounded-full size-8 sm:size-9"
           >
-            <ChevronLeft className="size-4 sm:size-5" />
+            <ChevronLeft className="size-4" />
           </Button>
           <Button
             variant="outline"
             size="icon"
             onClick={() => api?.scrollNext()}
-            className="rounded-full size-9 sm:size-10"
+            className="rounded-full size-8 sm:size-9"
           >
-            <ChevronRight className="size-4 sm:size-5" />
+            <ChevronRight className="size-4" />
           </Button>
         </div>
       </div>
@@ -88,20 +88,20 @@ export function TrendingSection({ onSelect }: TrendingSectionProps) {
           align: 'start',
           dragFree: true,
         }}
-        className="w-full"
+        className="w-full select-none"
       >
-        <CarouselContent className="-ml-3 sm:-ml-4">
+        <CarouselContent className="-ml-2.5 sm:-ml-3">
           {/* Spacer for start padding */}
           <CarouselItem className="pl-0 basis-auto">
             <div className="w-4 sm:w-6 lg:w-8" aria-hidden="true" />
           </CarouselItem>
           {trending.map((item) => (
-            <CarouselItem key={item.id} className="pl-3 sm:pl-4 basis-auto">
+            <CarouselItem key={item.id} className="pl-2.5 sm:pl-3 basis-auto">
               <button
                 onClick={() => onSelect(item)}
-                className="group w-[140px] sm:w-[180px] active:scale-[0.98] transition-transform"
+                className="group w-[130px] sm:w-[160px] active:scale-[0.98] transition-transform"
               >
-                <div className="relative aspect-[2/3] rounded-lg sm:rounded-xl overflow-hidden bg-muted mb-2 sm:mb-3">
+                <div className="relative aspect-[2/3] rounded-lg overflow-hidden bg-muted mb-1.5 sm:mb-2">
                   {item.poster_path ? (
                     <img
                       src={getImageUrl(item.poster_path, 'w342')}
@@ -112,20 +112,20 @@ export function TrendingSection({ onSelect }: TrendingSectionProps) {
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       {item.media_type === 'tv' ? (
-                        <Tv className="size-10 sm:size-12 text-muted-foreground" />
+                        <Tv className="size-8 sm:size-10 text-muted-foreground" />
                       ) : (
-                        <Film className="size-10 sm:size-12 text-muted-foreground" />
+                        <Film className="size-8 sm:size-10 text-muted-foreground" />
                       )}
                     </div>
                   )}
-                  <div className="absolute top-1.5 sm:top-2 right-1.5 sm:right-2">
-                    <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold rounded-md bg-black/60 text-white backdrop-blur-sm">
+                  <div className="absolute top-1.5 right-1.5">
+                    <span className="px-1.5 py-0.5 text-[10px] sm:text-xs font-semibold rounded bg-black/60 text-white backdrop-blur-sm">
                       {item.media_type === 'tv' ? 'TV' : 'Movie'}
                     </span>
                   </div>
                   {item.vote_average > 0 && (
-                    <div className="absolute top-1.5 sm:top-2 left-1.5 sm:left-2">
-                      <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold rounded-md bg-yellow-500/90 text-black">
+                    <div className="absolute top-1.5 left-1.5">
+                      <span className="px-1.5 py-0.5 text-[10px] sm:text-xs font-semibold rounded bg-yellow-500/90 text-black">
                         ★ {item.vote_average.toFixed(1)}
                       </span>
                     </div>
@@ -139,7 +139,7 @@ export function TrendingSection({ onSelect }: TrendingSectionProps) {
             </CarouselItem>
           ))}
           {/* Spacer for end padding */}
-          <CarouselItem className="pl-3 sm:pl-4 basis-auto">
+          <CarouselItem className="pl-2.5 sm:pl-3 basis-auto">
             <div className="w-1 sm:w-2 lg:w-4 shrink-0" aria-hidden="true" />
           </CarouselItem>
         </CarouselContent>

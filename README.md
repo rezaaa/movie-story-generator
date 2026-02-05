@@ -1,5 +1,7 @@
 # Movie Story Generator
 
+[![GitHub stars](https://img.shields.io/github/stars/rezaaa/movie-story-generator?style=social)](https://github.com/rezaaa/movie-story-generator)
+
 Create stunning Instagram stories and social media posts from your favorite movies and TV series. Because your taste in movies deserves to look as good as it sounds.
 
 ## Features
