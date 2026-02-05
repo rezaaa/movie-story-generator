@@ -1,8 +1,8 @@
 import { TMDBMovie, TMDBSearchResult, MovieDetails } from '@/types/tmdb'
 
 const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY
-const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
-export const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p'
+const TMDB_BASE_URL = process.env.NEXT_PUBLIC_TMDB_API_URL
+export const TMDB_IMAGE_BASE = process.env.NEXT_PUBLIC_TMDB_IMAGE_URL
 
 export async function searchMulti(query: string): Promise<TMDBMovie[]> {
   if (!query.trim()) return []
