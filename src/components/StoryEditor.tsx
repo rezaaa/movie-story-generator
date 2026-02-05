@@ -16,6 +16,7 @@ import {
   ChevronDown,
   Settings2,
   Type,
+  SlidersHorizontal,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
@@ -118,6 +119,8 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
   const [previewSize, setPreviewSize] = useState({ width: 0, height: 0 })
   const [isVisible, setIsVisible] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const [mobileControlsOpen, setMobileControlsOpen] = useState(false)
   const canvasRef = useRef<HTMLDivElement>(null)
   const colorPickerRef = useRef<HTMLDivElement>(null)
   const previewContainerRef = useRef<HTMLDivElement>(null)
@@ -125,6 +128,16 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
   // Animate in on mount
   useEffect(() => {
     requestAnimationFrame(() => setIsVisible(true))
+  }, [])
+
+  // Detect mobile viewport
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
   // Handle close with animation
@@ -245,8 +258,10 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
     const updatePreviewSize = () => {
       if (previewContainerRef.current) {
         const container = previewContainerRef.current
-        const containerWidth = container.clientWidth - 48 // padding
-        const containerHeight = container.clientHeight - 48 // padding
+        // Smaller padding on mobile
+        const padding = isMobile ? 24 : 48
+        const containerWidth = container.clientWidth - padding
+        const containerHeight = container.clientHeight - padding
         setPreviewSize({ width: containerWidth, height: containerHeight })
       }
     }
@@ -254,14 +269,19 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
     updatePreviewSize()
     window.addEventListener('resize', updatePreviewSize)
     return () => window.removeEventListener('resize', updatePreviewSize)
-  }, [])
+  }, [isMobile])
 
+  // Calculate scale with mobile-friendly constraints
   const baseScale = previewSize.width > 0 && previewSize.height > 0
     ? Math.min(previewSize.width / width, previewSize.height / height)
-    : Math.min(800 / width, 900 / height)
+    : isMobile
+      ? Math.min(350 / width, 500 / height)
+      : Math.min(800 / width, 900 / height)
 
-  // Make horizontal preview smaller
-  const previewScale = size === 'horizontal' ? baseScale * 0.75 : baseScale
+  // Make horizontal preview smaller, especially on mobile
+  const previewScale = size === 'horizontal'
+    ? baseScale * (isMobile ? 0.65 : 0.75)
+    : baseScale * (isMobile ? 0.9 : 1)
 
   const isVertical = size === 'vertical'
 
@@ -968,15 +988,335 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
     }
   }
 
+  // Mobile controls panel content (reusable)
+  const renderControls = () => (
+    <>
+      {/* Theme */}
+      <div>
+        <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+          <Palette className="size-4" />
+          Theme
+        </h3>
+        <div className="grid grid-cols-2 gap-2">
+          {(['light', 'dark'] as ThemeType[]).map((t) => (
+            <Button
+              key={t}
+              variant={theme === t ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setTheme(t)}
+              className="justify-start capitalize"
+            >
+              {t}
+            </Button>
+          ))}
+        </div>
+      </div>
+
+      {/* Size */}
+      <div>
+        <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+          <Monitor className="size-4" />
+          Size
+        </h3>
+        <div className="grid grid-cols-2 gap-2">
+          {(Object.keys(sizeConfig) as Size[]).map((p) => {
+            const config = sizeConfig[p]
+            const IconComponent = config.icon
+            return (
+              <Button
+                key={p}
+                variant={size === p ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setSize(p)}
+                className="justify-start gap-2"
+              >
+                <IconComponent className="size-4" />
+                {config.label}
+              </Button>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Presets */}
+      <div>
+        <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+          <Sparkles className="size-4" />
+          Presets
+        </h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          {presets.map((preset) => (
+            <Button
+              key={preset.name}
+              variant={layout === preset.layout && accentColor === preset.accentColor && font === preset.font ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => {
+                setLayout(preset.layout)
+                setAccentColor(preset.accentColor)
+              }}
+              className="justify-start text-xs gap-2"
+            >
+              <span
+                className="w-3 h-3 rounded-full shrink-0"
+                style={{ backgroundColor: preset.accentColor }}
+              />
+              {preset.name}
+            </Button>
+          ))}
+        </div>
+      </div>
+
+      {/* Accent Color */}
+      <div>
+        <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+          <Palette className="size-4" />
+          Accent Color
+        </h3>
+        <div className="relative" ref={colorPickerRef}>
+          <button
+            onClick={() => setShowColorPicker(!showColorPicker)}
+            className="w-full flex items-center gap-3 p-3 rounded-lg border border-border bg-background hover:bg-accent/50 transition-colors"
+          >
+            <div
+              className="w-8 h-8 rounded-lg shadow-inner border border-white/20"
+              style={{ backgroundColor: accentColor }}
+            />
+            <div className="flex-1 text-left">
+              <span className="text-sm font-medium">{accentColor.toUpperCase()}</span>
+              <p className="text-xs text-muted-foreground">Click to change</p>
+            </div>
+            <ChevronDown className={`size-4 text-muted-foreground transition-transform ${showColorPicker ? 'rotate-180' : ''}`} />
+          </button>
+
+          {showColorPicker && (
+            <div className="absolute top-full left-0 right-0 mt-2 z-50">
+              <div
+                className="fixed inset-0"
+                onClick={() => setShowColorPicker(false)}
+              />
+              <div className="relative rounded-lg border border-border shadow-xl overflow-hidden bg-[#0a0a0a]">
+                <style jsx global>{`
+                  .chrome-picker {
+                    background: #0a0a0a !important;
+                    box-shadow: none !important;
+                    border-radius: 8px !important;
+                    color: #e5e5e5 !important;
+                  }
+                  .chrome-picker input,
+                  .chrome-picker .hex input,
+                  .chrome-picker .fields input {
+                    background: #1a1a1a !important;
+                    color: #e5e5e5 !important;
+                    border: 1px solid #2a2a2a !important;
+                    box-shadow: none !important;
+                  }
+                  .chrome-picker .saturation,
+                  .chrome-picker .hue {
+                    border-radius: 4px !important;
+                  }
+                  .chrome-picker .hue {
+                    height: 12px !important;
+                  }
+                  .chrome-picker .swatch {
+                    border: 1px solid #2a2a2a !important;
+                  }
+                `}</style>
+                <ChromePicker
+                  color={accentColor}
+                  onChange={(color: ColorResult) => setAccentColor(color.hex)}
+                  disableAlpha
+                  styles={{
+                    default: {
+                      picker: {
+                        width: '100%',
+                        boxShadow: 'none',
+                        background: '#0a0a0a',
+                        borderRadius: '8px',
+                      } as React.CSSProperties,
+                      saturation: {
+                        borderRadius: '4px 4px 0 0',
+                      } as React.CSSProperties,
+                      body: {
+                        background: '#0a0a0a',
+                        padding: '12px',
+                      } as React.CSSProperties,
+                      controls: {
+                        display: 'flex',
+                      } as React.CSSProperties,
+                      color: {
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                      } as React.CSSProperties,
+                      hue: {
+                        borderRadius: '4px',
+                      } as React.CSSProperties,
+                    },
+                  }}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Rating */}
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-sm font-semibold flex items-center gap-2">
+            <Star className="size-4" />
+            Rating
+          </h3>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setShowRating(!showRating)}
+            className="text-xs"
+          >
+            {showRating ? 'Hide' : 'Show'}
+          </Button>
+        </div>
+        {showRating && (
+          <div className="space-y-3">
+            <Slider
+              value={[customRating]}
+              onValueChange={([value]) => setCustomRating(value)}
+              min={0}
+              max={10}
+              step={0.1}
+            />
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-muted-foreground">Your rating</span>
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-yellow-500">{customRating.toFixed(1).replace(/\.0$/, '')}</span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setCustomRating(movie.vote_average)}
+                  className="h-6 px-2"
+                >
+                  <RotateCcw className="size-3" />
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Advanced Options - Collapsible */}
+      <div>
+        <button
+          onClick={() => setShowAdvanced(!showAdvanced)}
+          className="w-full flex items-center justify-between text-sm font-semibold py-2 text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <span className="flex items-center gap-2">
+            <Settings2 className="size-4" />
+            Advanced Options
+          </span>
+          <ChevronDown className={`size-4 transition-transform ${showAdvanced ? 'rotate-180' : ''}`} />
+        </button>
+
+        {showAdvanced && (
+          <div className="mt-3 space-y-4">
+            {/* Layout */}
+            <div>
+              <h4 className="text-xs font-medium mb-2 flex items-center gap-2 text-muted-foreground">
+                <Layout className="size-3" />
+                Layout
+              </h4>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {(Object.keys(layouts) as LayoutType[]).map((l) => (
+                  <Button
+                    key={l}
+                    variant={layout === l ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setLayout(l)}
+                    className="justify-start text-xs"
+                  >
+                    {layouts[l]}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* Font */}
+            <div>
+              <h4 className="text-xs font-medium mb-2 flex items-center gap-2 text-muted-foreground">
+                <Type className="size-3" />
+                Typography
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {(Object.keys(fonts) as FontType[]).map((f) => (
+                  <button
+                    key={f}
+                    onClick={() => setFont(f)}
+                    className={`w-full p-3 rounded-lg border text-left transition-all hover:bg-accent/50 ${
+                      font === f
+                        ? 'border-primary bg-primary/10'
+                        : 'border-border bg-background'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm font-medium">{fonts[f].name}</span>
+                      {font === f && (
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                      )}
+                    </div>
+                    <div
+                      className="text-lg font-bold text-muted-foreground leading-none"
+                      style={{ fontFamily: fonts[f].family }}
+                    >
+                      {fonts[f].preview}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  )
+
+  // Export buttons component (reusable)
+  const renderExportButtons = () => (
+    <div className="space-y-2">
+      {canShare && (
+        <Button
+          onClick={handleShare}
+          disabled={isSharing || isExporting}
+          className="w-full"
+          size="lg"
+        >
+          <Share2 className="size-5 mr-2" />
+          {isSharing ? 'Sharing...' : 'Share'}
+        </Button>
+      )}
+      <Button
+        onClick={handleExport}
+        disabled={isExporting || isSharing}
+        variant={canShare ? 'outline' : 'default'}
+        className="w-full"
+        size="lg"
+      >
+        <Download className="size-5 mr-2" />
+        {isExporting ? 'Exporting...' : 'Download'}
+      </Button>
+      <p className="text-xs text-muted-foreground text-center mt-2">
+        {sizeConfig[size].width} x {sizeConfig[size].height}px
+      </p>
+    </div>
+  )
+
   return (
     <div
-      className={`fixed inset-0 z-50 flex transition-all duration-300 ease-out ${
+      className={`fixed inset-0 z-50 flex flex-col md:flex-row transition-all duration-300 ease-out ${
         isVisible && !isClosing ? 'bg-black/90 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
       }`}
     >
-      {/* Sidebar Controls */}
+      {/* Desktop Sidebar Controls */}
       <div
-        className={`w-80 bg-card border-r border-border flex flex-col overflow-hidden transition-transform duration-300 ease-out ${
+        className={`hidden md:flex w-80 bg-card border-r border-border flex-col overflow-hidden transition-transform duration-300 ease-out ${
           isVisible && !isClosing ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -988,330 +1328,41 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 space-y-6">
-          {/* Theme */}
-          <div>
-            <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
-              <Palette className="size-4" />
-              Theme
-            </h3>
-            <div className="grid grid-cols-2 gap-2">
-              {(['light', 'dark'] as ThemeType[]).map((t) => (
-                <Button
-                  key={t}
-                  variant={theme === t ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setTheme(t)}
-                  className="justify-start capitalize"
-                >
-                  {t}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* Size */}
-          <div>
-            <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
-              <Monitor className="size-4" />
-              Size
-            </h3>
-            <div className="grid grid-cols-2 gap-2">
-              {(Object.keys(sizeConfig) as Size[]).map((p) => {
-                const config = sizeConfig[p]
-                const IconComponent = config.icon
-                return (
-                  <Button
-                    key={p}
-                    variant={size === p ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setSize(p)}
-                    className="justify-start gap-2"
-                  >
-                    <IconComponent className="size-4" />
-                    {config.label}
-                  </Button>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* Presets */}
-          <div>
-            <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
-              <Sparkles className="size-4" />
-              Presets
-            </h3>
-            <div className="grid grid-cols-2 gap-2">
-              {presets.map((preset) => (
-                <Button
-                  key={preset.name}
-                  variant={layout === preset.layout && accentColor === preset.accentColor && font === preset.font ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => {
-                    setLayout(preset.layout)
-                    setAccentColor(preset.accentColor)
-                  }}
-                  className="justify-start text-xs gap-2"
-                >
-                  <span
-                    className="w-3 h-3 rounded-full shrink-0"
-                    style={{ backgroundColor: preset.accentColor }}
-                  />
-                  {preset.name}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* Accent Color */}
-          <div>
-            <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
-              <Palette className="size-4" />
-              Accent Color
-            </h3>
-            <div className="relative" ref={colorPickerRef}>
-              <button
-                onClick={() => setShowColorPicker(!showColorPicker)}
-                className="w-full flex items-center gap-3 p-3 rounded-lg border border-border bg-background hover:bg-accent/50 transition-colors"
-              >
-                <div
-                  className="w-8 h-8 rounded-lg shadow-inner border border-white/20"
-                  style={{ backgroundColor: accentColor }}
-                />
-                <div className="flex-1 text-left">
-                  <span className="text-sm font-medium">{accentColor.toUpperCase()}</span>
-                  <p className="text-xs text-muted-foreground">Click to change</p>
-                </div>
-                <ChevronDown className={`size-4 text-muted-foreground transition-transform ${showColorPicker ? 'rotate-180' : ''}`} />
-              </button>
-
-              {showColorPicker && (
-                <div className="absolute top-full left-0 right-0 mt-2 z-50">
-                  <div
-                    className="fixed inset-0"
-                    onClick={() => setShowColorPicker(false)}
-                  />
-                  <div className="relative rounded-lg border border-border shadow-xl overflow-hidden bg-[#0a0a0a]">
-                    <style jsx global>{`
-                      .chrome-picker {
-                        background: #0a0a0a !important;
-                        box-shadow: none !important;
-                        border-radius: 8px !important;
-                        color: #e5e5e5 !important;
-                      }
-                      .chrome-picker input,
-                      .chrome-picker .hex input,
-                      .chrome-picker .fields input {
-                        background: #1a1a1a !important;
-                        color: #e5e5e5 !important;
-                        border: 1px solid #2a2a2a !important;
-                        box-shadow: none !important;
-                      }
-                      .chrome-picker .saturation,
-                      .chrome-picker .hue {
-                        border-radius: 4px !important;
-                      }
-                      .chrome-picker .hue {
-                        height: 12px !important;
-                      }
-                      .chrome-picker .swatch {
-                        border: 1px solid #2a2a2a !important;
-                      }
-                    `}</style>
-                    <ChromePicker
-                      color={accentColor}
-                      onChange={(color: ColorResult) => setAccentColor(color.hex)}
-                      disableAlpha
-                      styles={{
-                        default: {
-                          picker: {
-                            width: '100%',
-                            boxShadow: 'none',
-                            background: '#0a0a0a',
-                            borderRadius: '8px',
-                          } as React.CSSProperties,
-                          saturation: {
-                            borderRadius: '4px 4px 0 0',
-                          } as React.CSSProperties,
-                          body: {
-                            background: '#0a0a0a',
-                            padding: '12px',
-                          } as React.CSSProperties,
-                          controls: {
-                            display: 'flex',
-                          } as React.CSSProperties,
-                          color: {
-                            width: '32px',
-                            height: '32px',
-                            borderRadius: '50%',
-                          } as React.CSSProperties,
-                          hue: {
-                            borderRadius: '4px',
-                          } as React.CSSProperties,
-                        },
-                      }}
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Rating */}
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-semibold flex items-center gap-2">
-                <Star className="size-4" />
-                Rating
-              </h3>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setShowRating(!showRating)}
-                className="text-xs"
-              >
-                {showRating ? 'Hide' : 'Show'}
-              </Button>
-            </div>
-            {showRating && (
-              <div className="space-y-3">
-                <Slider
-                  value={[customRating]}
-                  onValueChange={([value]) => setCustomRating(value)}
-                  min={0}
-                  max={10}
-                  step={0.1}
-                />
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Your rating</span>
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-yellow-500">{customRating.toFixed(1).replace(/\.0$/, '')}</span>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setCustomRating(movie.vote_average)}
-                      className="h-6 px-2"
-                    >
-                      <RotateCcw className="size-3" />
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Advanced Options - Collapsible */}
-          <div>
-            <button
-              onClick={() => setShowAdvanced(!showAdvanced)}
-              className="w-full flex items-center justify-between text-sm font-semibold py-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <span className="flex items-center gap-2">
-                <Settings2 className="size-4" />
-                Advanced Options
-              </span>
-              <ChevronDown className={`size-4 transition-transform ${showAdvanced ? 'rotate-180' : ''}`} />
-            </button>
-
-            {showAdvanced && (
-              <div className="mt-3 space-y-4">
-                {/* Layout */}
-                <div>
-                  <h4 className="text-xs font-medium mb-2 flex items-center gap-2 text-muted-foreground">
-                    <Layout className="size-3" />
-                    Layout
-                  </h4>
-                  <div className="grid grid-cols-2 gap-2">
-                    {(Object.keys(layouts) as LayoutType[]).map((l) => (
-                      <Button
-                        key={l}
-                        variant={layout === l ? 'default' : 'outline'}
-                        size="sm"
-                        onClick={() => setLayout(l)}
-                        className="justify-start text-xs"
-                      >
-                        {layouts[l]}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Font */}
-                <div>
-                  <h4 className="text-xs font-medium mb-2 flex items-center gap-2 text-muted-foreground">
-                    <Type className="size-3" />
-                    Typography
-                  </h4>
-                  <div className="space-y-2">
-                    {(Object.keys(fonts) as FontType[]).map((f) => (
-                      <button
-                        key={f}
-                        onClick={() => setFont(f)}
-                        className={`w-full p-3 rounded-lg border text-left transition-all hover:bg-accent/50 ${
-                          font === f 
-                            ? 'border-primary bg-primary/10' 
-                            : 'border-border bg-background'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-sm font-medium">{fonts[f].name}</span>
-                          {font === f && (
-                            <div className="w-2 h-2 rounded-full bg-primary" />
-                          )}
-                        </div>
-                        <div 
-                          className="text-lg font-bold text-muted-foreground leading-none"
-                          style={{ fontFamily: fonts[f].family }}
-                        >
-                          {fonts[f].preview}
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
+          {renderControls()}
         </div>
 
         {/* Export Buttons */}
-        <div className="p-4 border-t border-border space-y-2">
-          {canShare && (
-            <Button
-              onClick={handleShare}
-              disabled={isSharing || isExporting}
-              className="w-full"
-              size="lg"
-            >
-              <Share2 className="size-5 mr-2" />
-              {isSharing ? 'Sharing...' : 'Share'}
-            </Button>
-          )}
-          <Button
-            onClick={handleExport}
-            disabled={isExporting || isSharing}
-            variant={canShare ? 'outline' : 'default'}
-            className="w-full"
-            size="lg"
-          >
-            <Download className="size-5 mr-2" />
-            {isExporting ? 'Exporting...' : 'Download'}
-          </Button>
-          <p className="text-xs text-muted-foreground text-center mt-2">
-            {sizeConfig[size].width} x {sizeConfig[size].height}px
-          </p>
+        <div className="p-4 border-t border-border">
+          {renderExportButtons()}
         </div>
       </div>
 
-      {/* Preview Area */}
-      <div ref={previewContainerRef} className="flex-1 flex items-center justify-center p-6 overflow-auto">
+      {/* Mobile Header */}
+      <div className="flex md:hidden items-center justify-between p-3 bg-card border-b border-border">
+        <h2 className="text-base font-bold">Story Studio</h2>
+        <Button variant="ghost" size="icon" onClick={handleClose} className="size-9">
+          <X className="size-5" />
+        </Button>
+      </div>
+
+      {/* Preview Area - Responsive */}
+      <div
+        ref={previewContainerRef}
+        className="flex-1 flex items-center justify-center p-2 sm:p-3 md:p-6 overflow-hidden min-h-0 cursor-pointer"
+        onClick={(e) => {
+          // Close modal when clicking on the background (not the preview)
+          if (e.target === e.currentTarget) {
+            handleClose()
+          }
+        }}
+      >
         <div
-          className={`relative shadow-2xl rounded-lg overflow-hidden select-none transition-all duration-300 ease-out ${
-            isVisible && !isClosing ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          className={`relative shadow-2xl rounded-lg overflow-hidden select-none transition-opacity duration-300 ease-out max-w-full max-h-full cursor-default ${
+            isVisible && !isClosing ? 'opacity-100' : 'opacity-0'
           }`}
           style={{
-            width: width * previewScale,
-            height: height * previewScale,
+            width: Math.min(width * previewScale, previewSize.width || window.innerWidth - 24),
+            height: Math.min(height * previewScale, previewSize.height || window.innerHeight * 0.6),
           }}
           onContextMenu={(e) => e.preventDefault()}
         >
@@ -1326,6 +1377,58 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
             }}
           >
             {renderStoryContent()}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Bottom Bar with Actions */}
+      <div className="md:hidden bg-card border-t border-border">
+        {/* Main Action Bar - Always visible */}
+        <div className="flex items-center gap-2 p-3">
+          {/* Export Buttons - Always visible */}
+          <div className="flex-1 flex gap-2">
+            {canShare && (
+              <Button
+                onClick={handleShare}
+                disabled={isSharing || isExporting}
+                className="flex-1"
+                size="default"
+              >
+                <Share2 className="size-4 mr-1.5" />
+                {isSharing ? 'Sharing...' : 'Share'}
+              </Button>
+            )}
+            <Button
+              onClick={handleExport}
+              disabled={isExporting || isSharing}
+              variant={canShare ? 'outline' : 'default'}
+              className="flex-1"
+              size="default"
+            >
+              <Download className="size-4 mr-1.5" />
+              {isExporting ? 'Exporting...' : 'Download'}
+            </Button>
+          </div>
+
+          {/* Controls Toggle */}
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setMobileControlsOpen(!mobileControlsOpen)}
+            className="shrink-0"
+          >
+            <SlidersHorizontal className={`size-4 transition-transform ${mobileControlsOpen ? 'rotate-180' : ''}`} />
+          </Button>
+        </div>
+
+        {/* Expandable Controls Panel */}
+        <div
+          className={`bg-card border-t border-border overflow-hidden transition-all duration-300 ease-out ${
+            mobileControlsOpen ? 'max-h-[50vh]' : 'max-h-0'
+          }`}
+        >
+          <div className="overflow-y-auto max-h-[50vh] p-4 space-y-6">
+            {renderControls()}
           </div>
         </div>
       </div>
