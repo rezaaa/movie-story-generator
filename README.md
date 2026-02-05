@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Movie Story Generator
 
-## Getting Started
+Create stunning Instagram stories and social media posts from your favorite movies and TV series. Because your taste in movies deserves to look as good as it sounds.
 
-First, run the development server:
+## Features
 
+- **Search Everything** - Find any movie or TV series from TMDB's massive database
+- **6 Unique Layouts** - Premiere, Nostalgia, Neon, Noir, Frost, and Duality
+- **Multiple Sizes** - Vertical (1080x1920) for Stories, Horizontal (1920x1080) for posts
+- **Dark & Light Themes** - For the vampires and the early birds
+- **Custom Colors** - Pick any accent color you want
+- **Typography Options** - 7 fonts to match your vibe
+- **Custom Ratings** - Rate movies your way (we won't judge)
+- **Watermark Support** - Brand your creations
+- **Export & Share** - Download as PNG or share directly
+
+## Quick Start
+
+1. Clone the repo
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone git@github.com:rezaaa/movie-story-generator.git
+cd movie-story-generator
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables
+```bash
+cp .env.local.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Get your TMDB API key from [themoviedb.org](https://www.themoviedb.org/settings/api) and add it to `.env.local`
 
-## Learn More
+5. Run the dev server
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+6. Open [http://localhost:3000](http://localhost:3000) and start creating!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment Variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_TMDB_API_KEY` | Your TMDB API key (required) |
+| `NEXT_PUBLIC_TMDB_API_URL` | TMDB API base URL |
+| `NEXT_PUBLIC_WATERMARK_TEXT` | Custom watermark text |
 
-## Deploy on Vercel
+## Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Next.js 15** - React framework
+- **Tailwind CSS** - Styling
+- **shadcn/ui** - UI components
+- **TMDB API** - Movie & TV data
+- **html-to-image** - Export magic
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+
+Found a bug? Have a cool idea? Want to add a "Nicolas Cage Appreciation Mode"?
+
+1. Fork it
+2. Create your feature branch (`git checkout -b feature/cage-mode`)
+3. Commit your changes (`git commit -m 'Add Nicolas Cage easter egg'`)
+4. Push to the branch (`git push origin feature/cage-mode`)
+5. Open a Pull Request
+
+All contributions are welcome - from fixing typos to adding new layouts. Just keep it fun!
+
+## License
+
+MIT - Do whatever you want with it.
+
+---
+
+Made with popcorn by [Reza Mahmoudi](https://x.com/rezamahmoudii)
