@@ -49,6 +49,7 @@ npm run dev
 |----------|-------------|
 | `NEXT_PUBLIC_TMDB_API_KEY` | Your TMDB API key (required) |
 | `NEXT_PUBLIC_TMDB_API_URL` | TMDB API base URL |
+| `NEXT_PUBLIC_TMDB_IMAGE_URL` | TMDB image base URL |
 | `NEXT_PUBLIC_WATERMARK_TEXT` | Custom watermark text |
 
 ## Tech Stack
