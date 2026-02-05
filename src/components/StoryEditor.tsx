@@ -1148,16 +1148,6 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
                           hue: {
                             borderRadius: '4px',
                           } as React.CSSProperties,
-                          input: {
-                            background: '#1a1a1a',
-                            color: '#e5e5e5',
-                            border: '1px solid #2a2a2a',
-                            borderRadius: '4px',
-                            boxShadow: 'none',
-                          } as React.CSSProperties,
-                          label: {
-                            color: '#666666',
-                          } as React.CSSProperties,
                         },
                       }}
                     />
