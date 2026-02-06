@@ -727,15 +727,11 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
                 style={{
                   backgroundColor: `rgba(255, 255, 255, 0.06)`,
                   borderColor: `rgba(255, 255, 255, 0.15)`,
-                  boxShadow: `0 8px 32px 0 rgba(0, 0, 0, 0.3)`,
                 }}
               >
                 {/* Poster inside box */}
                 <div
                   className="relative h-full aspect-[2/3] rounded-2xl overflow-hidden shrink-0"
-                  style={{
-                    boxShadow: `0 20px 40px -12px rgba(0, 0, 0, 0.5)`,
-                  }}
                 >
                   {movie.poster_path && (
                     <img
@@ -828,7 +824,6 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
               style={{
                 backgroundColor: `rgba(255, 255, 255, 0.08)`,
                 borderColor: `${themeConfig.accent}40`,
-                boxShadow: `0 8px 32px 0 rgba(31, 38, 135, 0.37), inset 0 0 32px 0 ${themeConfig.accent}20`,
               }}
             >
               {movie.poster_path && (
