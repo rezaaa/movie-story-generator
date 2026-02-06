@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react'
-import { Clapperboard, Film, Plus, X, Sparkles, Wand2, Loader2, Check, Trash2 } from 'lucide-react'
+import { Clapperboard, Film, Plus, X, Sparkles, Wand2, Loader2, Trash2, Star, Clock } from 'lucide-react'
 import { SearchBar } from '@/components/SearchBar'
 import { TrendingSection } from '@/components/TrendingSection'
 import { StoryEditor } from '@/components/StoryEditor'
@@ -30,6 +30,7 @@ export default function Home() {
   const [minRating, setMinRating] = useState(7)
   const [movieCount, setMovieCount] = useState(6)
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false)
+  const [era, setEra] = useState<'any' | 'new' | 'old'>('any')
 
   const handleMovieSelect = (movie: TMDBMovie) => {
     if (marathonMode) {
@@ -89,6 +90,7 @@ export default function Home() {
         genres: selectedGenres.length > 0 ? selectedGenres : undefined,
         minRating,
         sortBy: 'popularity.desc',
+        era,
       })
 
       // Shuffle and pick random movies
@@ -148,7 +150,7 @@ export default function Home() {
                 variant={!marathonMode ? 'default' : 'ghost'}
                 size="sm"
                 onClick={() => setMarathonMode(false)}
-                className="gap-2"
+                className="gap-2 min-w-[140px] justify-center"
               >
                 <Film className="size-4" />
                 Single Story
@@ -157,7 +159,7 @@ export default function Home() {
                 variant={marathonMode ? 'default' : 'ghost'}
                 size="sm"
                 onClick={() => setMarathonMode(true)}
-                className="gap-2"
+                className="gap-2 min-w-[140px] justify-center"
               >
                 <Sparkles className="size-4" />
                 Marathon
@@ -325,7 +327,7 @@ export default function Home() {
           }}
         >
           <div 
-            className={`bg-card border-x border-t md:border border-border rounded-t-[32px] md:rounded-2xl shadow-2xl w-full max-w-lg max-h-[92vh] md:max-h-[85vh] overflow-hidden flex flex-col animate-in slide-in-from-bottom-full md:zoom-in-95 md:slide-in-from-bottom-4 duration-500 [animation-timing-function:cubic-bezier(0.16,1,0.3,1)] ${
+            className={`bg-card border-x border-t md:border border-border rounded-t-[32px] md:rounded-2xl shadow-2xl w-full max-w-2xl max-h-[92vh] md:max-h-[85vh] overflow-hidden flex flex-col animate-in slide-in-from-bottom-full md:zoom-in-95 md:slide-in-from-bottom-4 duration-500 [animation-timing-function:cubic-bezier(0.16,1,0.3,1)] ${
               isSuggestionClosing ? 'animate-out md:zoom-out-95 slide-out-to-bottom-full md:slide-out-to-bottom-4 duration-400' : ''
             }`}
             onClick={(e) => e.stopPropagation()}
@@ -336,36 +338,41 @@ export default function Home() {
             </div>
 
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-gradient-to-r from-primary/5 via-transparent to-transparent">
               <div className="flex items-center gap-2">
-                <Wand2 className="size-5 text-primary" />
-                <h2 className="text-lg font-bold">Smart Suggestions</h2>
+                <div className="p-1.5 rounded-lg bg-primary/10">
+                  <Wand2 className="size-4 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-base font-bold">Smart Suggestions</h2>
+                  <p className="text-[10px] text-muted-foreground">Find your perfect marathon</p>
+                </div>
               </div>
-              <Button variant="ghost" size="icon" onClick={handleCloseSuggestionPanel}>
-                <X className="size-5" />
+              <Button variant="ghost" size="icon" onClick={handleCloseSuggestionPanel} className="rounded-full h-8 w-8">
+                <X className="size-4" />
               </Button>
             </div>
 
             {/* Content */}
-            <div className="flex-1 overflow-y-auto p-5 space-y-6">
+            <div className="flex-1 overflow-y-auto p-4 space-y-5">
               {/* Quick Presets */}
               <div>
-                <h3 className="text-sm font-semibold mb-3">Quick Presets</h3>
+                <h3 className="text-sm font-bold mb-2.5">Quick Presets</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {SUGGESTION_PRESETS.map((preset) => (
                     <button
                       key={preset.id}
                       onClick={() => handlePresetClick(preset)}
-                      className={`p-3 rounded-lg border text-left transition-all hover:border-primary/50 ${
+                      className={`p-2.5 rounded-lg border-2 text-left transition-all duration-300 group active:scale-95 ${
                         selectedGenres.length > 0 &&
                         preset.genres.every((g) => selectedGenres.includes(g))
-                          ? 'border-primary bg-primary/10'
-                          : 'border-border'
+                          ? 'border-primary bg-primary/10 shadow-lg shadow-primary/20'
+                          : 'border-border hover:border-primary/50 hover:bg-muted/50'
                       }`}
                     >
-                      <span className="font-medium text-sm">{preset.name}</span>
-                      <p className="text-xs text-muted-foreground mt-0.5">
-                        Rating {preset.minRating}+
+                      <span className="font-semibold text-xs group-hover:text-primary transition-colors">{preset.name}</span>
+                      <p className="text-[10px] text-muted-foreground mt-0.5">
+                        ★ {preset.minRating}+
                       </p>
                     </button>
                   ))}
@@ -374,8 +381,8 @@ export default function Home() {
 
               {/* Genre Selection */}
               <div>
-                <h3 className="text-sm font-semibold mb-3">Genres</h3>
-                <div className="flex flex-wrap gap-2">
+                <h3 className="text-sm font-bold mb-2.5">Genres</h3>
+                <div className="flex flex-wrap gap-1.5">
                   {Object.entries(GENRE_MAP).map(([id, name]) => {
                     const genreId = parseInt(id)
                     const isSelected = selectedGenres.includes(genreId)
@@ -383,13 +390,12 @@ export default function Home() {
                       <button
                         key={id}
                         onClick={() => toggleGenre(genreId)}
-                        className={`px-3 py-1.5 rounded-full text-sm transition-all ${
+                        className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 active:scale-95 ${
                           isSelected
-                            ? 'bg-primary text-primary-foreground'
-                            : 'bg-muted hover:bg-muted/80'
+                            ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30'
+                            : 'bg-muted hover:bg-muted/80 text-foreground'
                         }`}
                       >
-                        {isSelected && <Check className="size-3 inline mr-1" />}
                         {name}
                       </button>
                     )
@@ -397,80 +403,101 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Min Rating */}
-              <div>
-                <h3 className="text-sm font-semibold mb-3">
-                  Minimum Rating: <span className="text-primary">{minRating}</span>
-                </h3>
-                <input
-                  type="range"
-                  min="5"
-                  max="9"
-                  step="0.5"
-                  value={minRating}
-                  onChange={(e) => setMinRating(parseFloat(e.target.value))}
-                  className="w-full accent-primary"
-                />
-                <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                  <span>5.0</span>
-                  <span>9.0</span>
+              {/* Filters Section */}
+              <div className="space-y-4 bg-muted/20 rounded-lg p-3 border border-border/50">
+                {/* Min Rating */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-xs font-semibold">Minimum Rating</h3>
+                    <span className="px-2 py-0.5 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center gap-1">
+                      <Star className="size-3 fill-current" /> {minRating}
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="5"
+                    max="9"
+                    step="0.5"
+                    value={minRating}
+                    onChange={(e) => setMinRating(parseFloat(e.target.value))}
+                    className="w-full h-1.5 rounded-lg bg-muted appearance-none cursor-pointer accent-primary"
+                  />
+                  <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
+                    <span>5.0</span>
+                    <span>9.0</span>
+                  </div>
                 </div>
-              </div>
 
-              {/* Movie Count */}
-              <div>
-                <h3 className="text-sm font-semibold mb-3">
-                  Number of Movies: <span className="text-primary">{movieCount}</span>
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between px-1">
+                {/* Era */}
+                <div className="border-t border-border/30 pt-3">
+                  <h3 className="text-xs font-semibold mb-2">Time Period</h3>
+                  <div className="flex gap-1.5">
+                    {([
+                      ['any', 'Any Era', Clapperboard],
+                      ['new', 'New (2010+)', Sparkles],
+                      ['old', 'Classic (pre-2010)', Clock]
+                    ] as const).map(([value, label, Icon]) => (
+                      <button
+                        key={value}
+                        onClick={() => setEra(value)}
+                        className={`flex-1 px-2 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 active:scale-95 flex items-center justify-center gap-1 ${
+                          era === value
+                            ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30'
+                            : 'bg-card border border-border hover:border-primary/50'
+                        }`}
+                      >
+                        <Icon className="size-3" />
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Movie Count */}
+                <div className="border-t border-border/30 pt-3">
+                  <h3 className="text-xs font-semibold mb-2">Number of Movies</h3>
+                  <div className="flex justify-between gap-1.5">
                     {[2, 3, 4, 5, 6].map((num) => (
                       <button
                         key={num}
                         onClick={() => setMovieCount(num)}
-                        className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                        className={`flex-1 h-8 rounded-lg flex items-center justify-center text-xs font-bold transition-all duration-300 active:scale-95 ${
                           movieCount === num
-                            ? 'bg-primary text-primary-foreground scale-110'
-                            : 'bg-muted hover:bg-muted/80 text-muted-foreground'
+                            ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30 scale-110'
+                            : 'bg-card border border-border hover:border-primary/50 text-muted-foreground'
                         }`}
                       >
                         {num}
                       </button>
                     ))}
                   </div>
-                  <input
-                    type="range"
-                    min="2"
-                    max="6"
-                    step="1"
-                    value={movieCount}
-                    onChange={(e) => setMovieCount(parseInt(e.target.value))}
-                    className="w-full accent-primary"
-                  />
                 </div>
               </div>
             </div>
 
             {/* Footer */}
-            <div className="p-5 border-t border-border">
+            <div className="p-4 border-t border-border bg-gradient-to-r from-primary/5 via-transparent to-transparent">
               <Button
                 onClick={handleGenerateSuggestions}
                 disabled={isLoadingSuggestions}
-                className="w-full h-12"
+                className="w-full h-11 text-sm font-semibold rounded-lg active:scale-95 transition-transform"
                 size="lg"
               >
                 {isLoadingSuggestions ? (
                   <>
-                    <Loader2 className="size-5 mr-2 animate-spin" />
+                    <Loader2 className="size-4 mr-2 animate-spin" />
                     Finding Movies...
                   </>
                 ) : (
                   <>
-                    <Wand2 className="size-5 mr-2" />
-                    Generate {movieCount} Movies
+                    <Sparkles className="size-4 mr-2" />
+                    Pick {movieCount} Movies
                   </>
                 )}
               </Button>
+              <p className="text-[10px] text-muted-foreground text-center mt-2">
+                We'll pick {movieCount} random {movieCount > 1 ? 'movies' : 'movie'} matching your preferences
+              </p>
             </div>
           </div>
         </div>

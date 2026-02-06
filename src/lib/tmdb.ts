@@ -61,6 +61,7 @@ export interface DiscoverOptions {
   minRating?: number
   sortBy?: 'popularity.desc' | 'vote_average.desc' | 'release_date.desc'
   page?: number
+  era?: 'any' | 'new' | 'old'
 }
 
 export async function discoverMovies(options: DiscoverOptions = {}): Promise<TMDBMovie[]> {
@@ -73,11 +74,17 @@ export async function discoverMovies(options: DiscoverOptions = {}): Promise<TMD
   })
 
   if (options.genres && options.genres.length > 0) {
-    params.append('with_genres', options.genres.join(','))
+    params.append('with_genres', options.genres.join('|'))
   }
 
   if (options.minRating) {
     params.append('vote_average.gte', options.minRating.toString())
+  }
+
+  if (options.era === 'new') {
+    params.append('primary_release_date.gte', '2010-01-01')
+  } else if (options.era === 'old') {
+    params.append('primary_release_date.lte', '2009-12-31')
   }
 
   const res = await fetch(`${TMDB_BASE_URL}/discover/movie?${params}`)
