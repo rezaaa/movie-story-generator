@@ -284,6 +284,8 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
     : baseScale * (isMobile ? 0.9 : 1)
 
   const isVertical = size === 'vertical'
+  // Keep branding clear of Instagram Story's bottom UI controls.
+  const watermarkBottom = isVertical ? 240 : 16
 
   const renderStoryContent = () => {
     // Font sizes - much bigger for X (Twitter) mode
@@ -318,7 +320,7 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
             }}
           />
 
-          <div className={`absolute bottom-0 left-0 right-0 ${isVertical ? 'p-[8%] pb-[12%]' : 'p-[5%] pb-[8%]'}`}>
+          <div className={`absolute bottom-0 left-0 right-0 ${isVertical ? 'p-[8%] pb-[18%]' : 'p-[5%] pb-[8%]'}`}>
             <h1
               className="font-bold leading-[1.05] mb-[2%]"
               style={{ 
@@ -369,10 +371,14 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
                 </>
               )}
             </div>
-          </div>
-
-          <div className="absolute bottom-4 left-18 p-4" style={{ opacity: 0.55 }}>
-            <p style={{ color: themeConfig.text, fontSize: `${fontSize.meta}px`, textAlign: 'center' }}>
+            <p
+              style={{
+                color: themeConfig.text,
+                fontSize: `${fontSize.meta}px`,
+                marginTop: `${fontSize.meta * 1.25}px`,
+                opacity: 0.55,
+              }}
+            >
               {watermarkText}
             </p>
           </div>
@@ -401,7 +407,7 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
             }}
           />
 
-          <div className={`absolute inset-0 flex flex-col justify-end ${isVertical ? 'p-[10%] pb-[15%]' : 'p-[5%] pb-[8%]'}`}>
+          <div className={`absolute inset-0 flex flex-col justify-end ${isVertical ? 'p-[10%] pb-[20%]' : 'p-[5%] pb-[8%]'}`}>
             <h1
               className="font-extrabold leading-[1.05] mb-[2%]"
               style={{ 
@@ -452,10 +458,14 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
                 </>
               )}
             </div>
-          </div>
-
-          <div className="absolute bottom-4 left-24 p-4" style={{ opacity: 0.55 }}>
-            <p style={{ color: themeConfig.text, fontSize: `${fontSize.meta}px`, textAlign: 'center' }}>
+            <p
+              style={{
+                color: themeConfig.text,
+                fontSize: `${fontSize.meta}px`,
+                marginTop: `${fontSize.meta * 1.25}px`,
+                opacity: 0.55,
+              }}
+            >
               {watermarkText}
             </p>
           </div>
@@ -537,7 +547,7 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
               </div>
             </div>
 
-            <div className="absolute bottom-4 left-22 p-4" style={{ opacity: 0.55 }}>
+            <div className="absolute left-22 p-4" style={{ bottom: watermarkBottom, opacity: 0.55 }}>
               <p style={{ color: themeConfig.text, fontSize: `${fontSize.meta}px`, textAlign: 'center' }}>
                 {watermarkText}
               </p>
@@ -561,7 +571,7 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
             />
           )}
 
-          <div className="absolute inset-0 flex flex-col items-center justify-center px-[5%] py-[6%]">
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-[5%] pt-[6%] pb-[12%]">
             <div
               className="relative rounded-2xl overflow-hidden shadow-2xl mb-[4%]"
               style={{
@@ -616,7 +626,7 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
             )}
           </div>
 
-          <div className="absolute bottom-6 left-0 right-0 p-4" style={{ opacity: 0.55 }}>
+          <div className="absolute left-0 right-0 p-4" style={{ bottom: isVertical ? 190 : watermarkBottom, opacity: 0.55 }}>
             <p style={{ color: themeConfig.text, fontSize: `${fontSize.meta}px`, textAlign: 'center' }}>
               {watermarkText}
             </p>
@@ -649,7 +659,7 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
             }}
           />
 
-          <div className={`relative ${isVertical ? 'p-[10%] pb-[20%]' : 'p-[5%] pb-[10%]'}`}>
+          <div className={`relative ${isVertical ? 'p-[10%] pb-[18%]' : 'p-[5%] pb-[8%]'}`}>
             <h1
               className={`font-black leading-[1] ${isVertical ? 'mb-[6%]' : 'mb-[2%]'} tracking-tight`}
               style={{ 
@@ -689,10 +699,14 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
                 </>
               )}
             </div>
-          </div>
-
-          <div className="absolute bottom-4 left-22 p-4" style={{ opacity: 0.55 }}>
-            <p style={{ color: themeConfig.text, fontSize: `${fontSize.meta}px`, textAlign: 'center' }}>
+            <p
+              style={{
+                color: themeConfig.text,
+                fontSize: `${fontSize.meta}px`,
+                marginTop: `${fontSize.meta * 1.25}px`,
+                opacity: 0.55,
+              }}
+            >
               {watermarkText}
             </p>
           </div>
@@ -791,7 +805,7 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
               </div>
             </div>
 
-            <div className="absolute bottom-4 left-0 right-0 p-4" style={{ opacity: 0.55 }}>
+            <div className="absolute left-0 right-0 p-4" style={{ bottom: watermarkBottom, opacity: 0.55 }}>
               <p style={{ color: themeConfig.text, fontSize: `${fontSize.meta}px`, textAlign: 'center' }}>
                 {watermarkText}
               </p>
@@ -818,7 +832,7 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
 
           <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${themeConfig.bg}66 0%, ${themeConfig.bg}99 100%)` }} />
 
-          <div className="absolute inset-0 flex items-center justify-center p-[8%]">
+          <div className="absolute inset-0 flex items-center justify-center px-[8%] pt-[8%] pb-[18%]">
             <div
               className="w-full rounded-3xl border backdrop-blur-xl p-[6%]"
               style={{
@@ -882,7 +896,7 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
             </div>
           </div>
 
-          <div className="absolute bottom-4 left-0 right-0 p-4" style={{ opacity: 0.55 }}>
+          <div className="absolute left-0 right-0 p-4" style={{ bottom: watermarkBottom, opacity: 0.55 }}>
             <p style={{ color: themeConfig.text, fontSize: `${fontSize.meta}px`, textAlign: 'center' }}>
               {watermarkText}
             </p>
@@ -973,7 +987,7 @@ export function StoryEditor({ movie, onClose }: StoryEditorProps) {
             )}
           </div>
 
-          <div className="absolute bottom-4 left-[50%] p-4" style={{ opacity: 0.55 }}>
+          <div className="absolute left-[50%] p-4" style={{ bottom: watermarkBottom, opacity: 0.55 }}>
             <p style={{ color: themeConfig.text, fontSize: `${fontSize.meta}px` }}>
               {watermarkText}
             </p>

@@ -202,6 +202,8 @@ export function MarathonEditor({ movies, onClose, onRemoveMovie }: MarathonEdito
 
   const { width, height } = sizeConfig[size]
   const isVertical = size === 'vertical'
+  // Keep branding clear of Instagram Story's bottom UI controls.
+  const instagramStorySafeBottom = 240
 
   // Calculate preview scale
   useEffect(() => {
@@ -402,7 +404,7 @@ export function MarathonEditor({ movies, onClose, onRemoveMovie }: MarathonEdito
             </div>
 
             {/* Ranked items - fill remaining space */}
-            <div className="absolute left-0 right-0 top-[320px] bottom-[80px] flex flex-col px-8 gap-4">
+            <div className="absolute left-0 right-0 top-[320px] bottom-[300px] flex flex-col px-8 gap-4">
               {marathonMovies.map((movie, index) => (
                 <div
                   key={movie.id}
@@ -459,7 +461,7 @@ export function MarathonEditor({ movies, onClose, onRemoveMovie }: MarathonEdito
             </div>
 
             {/* Watermark */}
-            <div className="absolute bottom-6 left-0 right-0 text-center">
+            <div className="absolute left-0 right-0 text-center" style={{ bottom: instagramStorySafeBottom }}>
               <p style={{ color: themeConfig.text, fontSize: 24, opacity: 0.6 }}>{watermarkText}</p>
             </div>
           </div>
@@ -586,7 +588,7 @@ export function MarathonEditor({ movies, onClose, onRemoveMovie }: MarathonEdito
     if (layout === 'timeline') {
       if (isVertical) {
         const topSpace = 280
-        const bottomSpace = 100
+        const bottomSpace = 300
         const itemHeight = Math.floor((1920 - topSpace - bottomSpace) / count)
         return (
           <div className="relative w-full h-full overflow-hidden" style={{ backgroundColor: themeConfig.bg }}>
@@ -699,7 +701,7 @@ export function MarathonEditor({ movies, onClose, onRemoveMovie }: MarathonEdito
             ))}
 
             {/* Watermark */}
-            <div className="absolute bottom-8 left-0 right-0 text-center">
+            <div className="absolute left-0 right-0 text-center" style={{ bottom: instagramStorySafeBottom }}>
               <p style={{ color: themeConfig.text, fontSize: 24, opacity: 0.6 }}>{watermarkText}</p>
             </div>
           </div>
@@ -1039,7 +1041,7 @@ export function MarathonEditor({ movies, onClose, onRemoveMovie }: MarathonEdito
             className="absolute bottom-0 left-0 right-0"
             style={{
               background: `linear-gradient(to top, ${themeConfig.bg} 0%, ${themeConfig.bg} ${isVertical ? '70%' : '90%'}, ${themeConfig.bg}ee ${isVertical ? '85%' : '95%'}, transparent 100%)`,
-              padding: isVertical ? '180px 48px 60px' : '140px 60px 40px',
+              padding: isVertical ? '180px 48px 240px' : '140px 60px 40px',
               zIndex: 20,
               display: 'flex',
               flexDirection: isVertical ? 'column' : 'row',
@@ -1174,7 +1176,7 @@ export function MarathonEditor({ movies, onClose, onRemoveMovie }: MarathonEdito
     // Minimal Layout - Clean list view filling the frame
     if (layout === 'minimal') {
       const itemHeight = isVertical
-        ? Math.floor((1920 - 260) / count)
+        ? Math.floor((1920 - 520) / count)
         : Math.floor((1080 - 180) / Math.ceil(count / 2))
 
       if (isVertical) {
@@ -1202,7 +1204,7 @@ export function MarathonEditor({ movies, onClose, onRemoveMovie }: MarathonEdito
             </div>
 
             {/* Movie List */}
-            <div className="absolute left-0 right-0 top-[220px] bottom-[80px] flex flex-col px-8">
+            <div className="absolute left-0 right-0 top-[220px] bottom-[300px] flex flex-col px-8">
               {marathonMovies.map((movie, index) => (
                 <div
                   key={movie.id}
@@ -1267,7 +1269,7 @@ export function MarathonEditor({ movies, onClose, onRemoveMovie }: MarathonEdito
             </div>
 
             {/* Watermark */}
-            <div className="absolute bottom-6 left-0 right-0 text-center">
+            <div className="absolute left-0 right-0 text-center" style={{ bottom: instagramStorySafeBottom }}>
               <p style={{ color: themeConfig.text, fontSize: 24, opacity: 0.5 }}>{watermarkText}</p>
             </div>
           </div>

@@ -304,15 +304,6 @@ export default function Home() {
                 </div>
               )}
             </div>
-
-            {/* Hint */}
-            <div className="h-7 mb-1 flex items-center justify-center">
-              {marathonMovies.length < 2 ? (
-                <p className="text-xs text-muted-foreground text-center animate-in fade-in slide-in-from-bottom-1 duration-300">
-                  Add at least 2 movies to create a marathon image
-                </p>
-              ) : null}
-            </div>
           </div>
         </div>
 
